@@ -147,27 +147,75 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-test" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-JavaScript中的函数柯里化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/04/test/">test</a>
+      <a class="article-title" href="/2017/11/04/JavaScript中的函数柯里化/">JavaScript中的函数柯里化</a>
     </h1>
   
 
         
-        <a href="/2017/11/04/test/" class="archive-article-date">
-  	<time datetime="2017-11-04T11:32:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-04</time>
+        <a href="/2017/11/04/JavaScript中的函数柯里化/" class="archive-article-date">
+  	<time datetime="2017-11-04T15:30:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>你好</p>
+        <h3 id="1-引子"><a href="#1-引子" class="headerlink" title="1.引子"></a>1.引子</h3><p>在前端面试中有一道面试题，流传甚广。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 实现一个add方法，使计算结果能够满足如下预期：</div><div class="line">add(1)(2)(3) = 6</div><div class="line">add(1, 2, 3)(4) = 10</div><div class="line">add(1)(2)(3)(4)(5) = 15</div></pre></td></tr></table></figure>
+<p>很明显，计算结果正是所有参数的和，add方法每运行一次，肯定返回了一个同样的函数，继续计算剩下的参数。</p>
+<p>我们可以从简单的例子一步一步寻找解决方案。</p>
+<p>当我们只调用两次时，可以这样封装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function add(a) &#123;</div><div class="line">    return function(b) &#123;</div><div class="line">        return a + b;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.log(add(1)(2));  // 3</div></pre></td></tr></table></figure>
+<p>如果只调用三次：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function add(a) &#123;</div><div class="line">    return function(b) &#123;</div><div class="line">        return function (c) &#123;</div><div class="line">            return a + b + c;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.log(add(1)(2)(3)); // 6</div></pre></td></tr></table></figure>
+<p>上面的封装看上去跟我们想要的结果有点类似，但是参数的使用被限制得很死，因此并不是我们想要的最终结果，我们需要通用的封装。应该怎么办？总结一下上面2个例子，其实我们是利用闭包的特性，将所有的参数，集中到最后返回的函数里进行计算并返回结果。因此我们在封装时，主要的目的，就是将参数集中起来计算。</p>
+<p>来看看具体实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var adder = function () &#123;</div><div class="line">    var _args = [];</div><div class="line">    return function () &#123;</div><div class="line">        if (arguments.length === 0) &#123;</div><div class="line">            return _args.reduce(function (a, b) &#123;</div><div class="line">                return a + b;</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">        [].push.apply(_args, [].slice.call(arguments));</div><div class="line">        return arguments.callee;</div><div class="line">    &#125;</div><div class="line">&#125;;    </div><div class="line">var sum = adder();</div><div class="line"></div><div class="line">console.log(sum);     // Function</div><div class="line"></div><div class="line">sum(100,200)(300);    // 调用形式灵活，一次调用可输入一个或者多个参数，并且支持链式调用</div><div class="line">sum(400);</div><div class="line">console.log(sum());   // 1000 （加总计算）</div></pre></td></tr></table></figure>
+<p>上面 adder是柯里化了的函数，它返回一个新的函数，新的函数接收可分批次接受新的参数，延迟到最后一次计算。我们可以任意传入参数，当不传参数的时候，输出计算结果，很轻松的满足了我们的需求。</p>
+<h3 id="2-柯里化的定义及相关问题"><a href="#2-柯里化的定义及相关问题" class="headerlink" title="2.柯里化的定义及相关问题"></a>2.柯里化的定义及相关问题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">柯里化（英语：Currying），又称为部分求值，</div><div class="line">是把接受多个参数的函数变换成接受一个单一参数(最初函数的第一个参数)的函数，</div><div class="line">并且返回接受余下的参数且返回结果的新函数的技术。</div><div class="line">这个技术由 Christopher Strachey 以逻辑学家 Haskell Curry 命名的</div></pre></td></tr></table></figure>
+<p>在上面的例子中，我们可以将sum(100, 200)(300)转换为sum(100)(200)(300)。这就是部分求值。每次传入的参数都只是我们想要传入的所有参数中的一部分。当然实际应用中，并不会常常这么复杂的去处理参数，很多时候也仅仅只是分成两部分而已。</p>
+<p>下面再来一起思考一个与柯里化相关的问题。</p>
+<ul>
+<li>假如有一个计算要求，需要我们将数组里面的每一项用我们自己想要的字符给连起来。我们应该怎么做？想到使用join方法，就很简单。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var arr = [1, 2, 3, 4, 5];</div><div class="line"></div><div class="line">Array.prototype.merge = function(chars) &#123;</div><div class="line">    return this.join(chars);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var string = arr.merge(&apos;-&apos;)</div><div class="line"></div><div class="line">console.log(string);  // 1-2-3-4-5</div></pre></td></tr></table></figure>
+<ul>
+<li>增加难度，将每一项加一个数后再连起来。那么这里就需要map来帮助我们对每一项进行特殊的运算处理，生成新的数组然后用字符连接起来了。实现如下：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">var arr = [1, 2, 3, 4, 5];</div><div class="line"></div><div class="line">Array.prototype.merge = function(chars, number) &#123;</div><div class="line">    return this.map(function(item) &#123;</div><div class="line">        return item + number;</div><div class="line">    &#125;).join(chars);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var string = arr.merge(&apos;-&apos;, 1);</div><div class="line"></div><div class="line">console.log(string); // 2-3-4-5-6</div></pre></td></tr></table></figure>
+<ul>
+<li>但是如果我们又想要让数组每一项都减去一个数之后再连起来呢？当然和上面的加法操作一样的实现。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var arr = [1, 2, 3, 4, 5];</div><div class="line"></div><div class="line">Array.prototype.merge = function(chars, number) &#123;</div><div class="line">    return this.map(function(item) &#123;</div><div class="line">        return item - number;</div><div class="line">    &#125;).join(chars);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var string = arr.merge(&apos;~&apos;, 1);</div><div class="line"></div><div class="line">console.log(string); // 0~1~2~3~4</div></pre></td></tr></table></figure>
+<p>机智的小伙伴肯定发现困惑所在了。我们期望封装一个函数，能同时处理不同的运算过程，但是我们并不能使用一个固定的套路将对每一项的操作都封装起来。我们可以借助柯里化来搞定。</p>
+<p>于是我们就有了以下的封装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">// 封装很简单，一句话搞定</div><div class="line">Array.prototype.merge = function(fn, chars) &#123;</div><div class="line">    return this.map(fn).join(chars);</div><div class="line">&#125;</div><div class="line"></div><div class="line">var arr = [1, 2, 3, 4];</div><div class="line"></div><div class="line">// 难点在于，在实际使用的时候，操作怎么来定义，利用闭包保存于传递num参数</div><div class="line">var add = function(num) &#123;</div><div class="line">    return function(item) &#123;</div><div class="line">        return item + num;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var red = function(num) &#123;</div><div class="line">    return function(item) &#123;</div><div class="line">        return item - num;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 每一项加2后合并</div><div class="line">var res1 = arr.merge(add(2), &apos;-&apos;);</div><div class="line"></div><div class="line">// 每一项减2后合并</div><div class="line">var res2 = arr.merge(red(1), &apos;-&apos;);</div><div class="line"></div><div class="line">// 也可以直接使用回调函数，每一项乘2后合并</div><div class="line">var res3 = arr.merge((function(num) &#123;</div><div class="line">    return function(item) &#123;</div><div class="line">        return item * num</div><div class="line">    &#125;</div><div class="line">&#125;)(2), &apos;-&apos;)</div><div class="line"></div><div class="line">console.log(res1); // 3-4-5-6</div><div class="line">console.log(res2); // 0-1-2-3</div><div class="line">console.log(res3); // 2-4-6-8</div></pre></td></tr></table></figure>
+<p>大家能从上面的例子，发现柯里化的特征吗？</p>
+<h3 id="3-柯里化通式"><a href="#3-柯里化通式" class="headerlink" title="3.柯里化通式"></a>3.柯里化通式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">var currying = function(fn) &#123;</div><div class="line">    var args = [].slice.call(arguments, 1);</div><div class="line"></div><div class="line">    return function() &#123;</div><div class="line">        // 主要还是收集所有需要的参数到一个数组中，便于统一计算</div><div class="line">        var _args = args.concat([].slice.call(arguments));</div><div class="line">        return fn.apply(null, _args);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var sum = currying(function() &#123;</div><div class="line">    var args = [].slice.call(arguments);</div><div class="line">    return args.reduce(function(a, b) &#123;</div><div class="line">        return a + b;</div><div class="line">    &#125;)</div><div class="line">&#125;, 10)</div><div class="line"></div><div class="line">console.log(sum(20, 10));  // 40</div><div class="line">console.log(sum(10, 5));   // 25</div></pre></td></tr></table></figure>
+<h3 id="4-柯里化的作用"><a href="#4-柯里化的作用" class="headerlink" title="4.柯里化的作用"></a>4.柯里化的作用</h3><ul>
+<li>延迟计算。上面的例子已经比较好的说明了。</li>
+<li>参数复用。当在多次调用同一个函数，并且传递的参数绝大多数是相同的，那么该函数可能是一个很好的柯里化候选。</li>
+<li>动态创建函数。这可以是在部分计算出结果后，在此基础上动态生成新的函数处理后面的业务，这样省略了重复计算。或者可以通过将要传入调用函数的参数子集，部分应用到函数中，从而动态创造出一个新函数，这个新函数保存了重复传入的参数（以后不必每次都传）。例如，事件浏览器添加事件的辅助方法：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var addEvent = function(el, type, fn, capture) &#123;</div><div class="line">     if (window.addEventListener) &#123;</div><div class="line">         el.addEventListener(type, function(e) &#123;</div><div class="line">             fn.call(el, e);</div><div class="line">         &#125;, capture);</div><div class="line">     &#125; else if (window.attachEvent) &#123;</div><div class="line">         el.attachEvent(&quot;on&quot; + type, function(e) &#123;</div><div class="line">             fn.call(el, e);</div><div class="line">         &#125;);</div><div class="line">     &#125; </div><div class="line"> &#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>每次添加事件处理都要执行一遍 if…else…，其实在一个浏览器中只要一次判定就可以了，把根据一次判定之后的结果动态生成新的函数，以后就不必重新计算。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var addEvent = (function()&#123;</div><div class="line">    if (window.addEventListener) &#123;</div><div class="line">        return function(el, sType, fn, capture) &#123;</div><div class="line">            el.addEventListener(sType, function(e) &#123;</div><div class="line">                fn.call(el, e);</div><div class="line">            &#125;, (capture));</div><div class="line">        &#125;;</div><div class="line">    &#125; else if (window.attachEvent) &#123;</div><div class="line">        return function(el, sType, fn, capture) &#123;</div><div class="line">            el.attachEvent(&quot;on&quot; + sType, function(e) &#123;</div><div class="line">                fn.call(el, e);</div><div class="line">            &#125;);</div><div class="line">        &#125;;</div><div class="line">    &#125;</div><div class="line">&#125;)();</div></pre></td></tr></table></figure></p>
+<p>这个例子，第一次 if…else… 判断之后，完成了部分计算，动态创建新的函数来处理后面传入的参数，这是一个典型的柯里化。</p>
+<h3 id="5-柯里化与bind"><a href="#5-柯里化与bind" class="headerlink" title="5.柯里化与bind"></a>5.柯里化与bind</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function bind(fn, context)&#123;</div><div class="line">    var args = Array.prototype.slice.call(arguments, 2);</div><div class="line">    return function()&#123;</div><div class="line">        var innerArgs = Array.prototype.slice.call(arguments);</div><div class="line">        var finalArgs = args.concat(innerArgs);</div><div class="line">        return fn.apply(context, finalArgs);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个例子利用call与apply的灵活运用，实现了bind的功能。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在前面的所有的例子中，我们可以总结一下柯里化的特点：</p>
+<ul>
+<li>接收单一参数，将更多的参数通过回调函数来搞定；</li>
+<li>返回一个新函数，用于处理所有的想要传入的参数；</li>
+<li>需要利用call/apply与arguments对象收集参数；</li>
+<li>返回的这个函数正是用来处理收集起来的参数。</li>
+</ul>
 
       
 
@@ -180,78 +228,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/04/test/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/04/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/04/hello-world/" class="archive-article-date">
-  	<time datetime="2017-11-04T08:43:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/04/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/11/04/JavaScript中的函数柯里化/">展开全文 >></a>
         </p>
       
 
