@@ -8,16 +8,16 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>JavaScript中的函数柯里化 | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.引子在前端面试中有一道面试题，流传甚广。 1234// 实现一个add方法，使计算结果能够满足如下预期：add(1)(2)(3) = 6add(1, 2, 3)(4) = 10add(1)(2)(3)(4)(5) = 15 很明显，计算结果正是所有参数的和，add方法每运行一次，肯定返回了一个同样的函数，继续计算剩下的参数。 我们可以从简单的例子一步一步寻找解决方案。">
+  <meta name="description" content="1.引子在前端面试中有一道面试题，流传甚广。 1234// 实现一个add方法，使计算结果能够满足如下预期：add(1)(2)(3) = 6add(1, 2, 3)(4) = 10add(1)(2)(3)(4)(5) = 15">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript中的函数柯里化">
 <meta property="og:url" content="http://yoursite.com/2017/11/04/JavaScript中的函数柯里化/index.html">
 <meta property="og:site_name" content="twilight">
-<meta property="og:description" content="1.引子在前端面试中有一道面试题，流传甚广。 1234// 实现一个add方法，使计算结果能够满足如下预期：add(1)(2)(3) = 6add(1, 2, 3)(4) = 10add(1)(2)(3)(4)(5) = 15 很明显，计算结果正是所有参数的和，add方法每运行一次，肯定返回了一个同样的函数，继续计算剩下的参数。 我们可以从简单的例子一步一步寻找解决方案。">
-<meta property="og:updated_time" content="2017-11-04T15:43:46.000Z">
+<meta property="og:description" content="1.引子在前端面试中有一道面试题，流传甚广。 1234// 实现一个add方法，使计算结果能够满足如下预期：add(1)(2)(3) = 6add(1, 2, 3)(4) = 10add(1)(2)(3)(4)(5) = 15">
+<meta property="og:updated_time" content="2017-11-04T16:02:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript中的函数柯里化">
-<meta name="twitter:description" content="1.引子在前端面试中有一道面试题，流传甚广。 1234// 实现一个add方法，使计算结果能够满足如下预期：add(1)(2)(3) = 6add(1, 2, 3)(4) = 10add(1)(2)(3)(4)(5) = 15 很明显，计算结果正是所有参数的和，add方法每运行一次，肯定返回了一个同样的函数，继续计算剩下的参数。 我们可以从简单的例子一步一步寻找解决方案。">
+<meta name="twitter:description" content="1.引子在前端面试中有一道面试题，流传甚广。 1234// 实现一个add方法，使计算结果能够满足如下预期：add(1)(2)(3) = 6add(1, 2, 3)(4) = 10add(1)(2)(3)(4)(5) = 15">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -171,8 +171,10 @@
       
         <h3 id="1-引子"><a href="#1-引子" class="headerlink" title="1.引子"></a>1.引子</h3><p>在前端面试中有一道面试题，流传甚广。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 实现一个add方法，使计算结果能够满足如下预期：</div><div class="line">add(1)(2)(3) = 6</div><div class="line">add(1, 2, 3)(4) = 10</div><div class="line">add(1)(2)(3)(4)(5) = 15</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p>很明显，计算结果正是所有参数的和，add方法每运行一次，肯定返回了一个同样的函数，继续计算剩下的参数。</p>
-<p>我们可以从简单的例子一步一步寻找解决方案。<br><a id="more"></a><br>当我们只调用两次时，可以这样封装。</p>
+<p>我们可以从简单的例子一步一步寻找解决方案。</p>
+<p>当我们只调用两次时，可以这样封装。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function add(a) &#123;</div><div class="line">    return function(b) &#123;</div><div class="line">        return a + b;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.log(add(1)(2));  // 3</div></pre></td></tr></table></figure>
 <p>如果只调用三次：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function add(a) &#123;</div><div class="line">    return function(b) &#123;</div><div class="line">        return function (c) &#123;</div><div class="line">            return a + b + c;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">console.log(add(1)(2)(3)); // 6</div></pre></td></tr></table></figure>
