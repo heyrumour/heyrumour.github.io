@@ -6,14 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>twilight</title>
+  <title>Web存储 | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="twilight">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="1. 前言Web 应用中的数据可以保存到两个地方，一个是 Web 服务器，一个是 Web 客户端。Web 服务器适合保存敏感信息，以及那些不希望被人篡改的数据，服务器安全可靠；然而，服务器端存储并非适合所有的网站，例如一些不太重要的信息放在用户的计算机上比较方便。比如应用状态，保存后可以方便用户在将来返回该状态。如果从服务端获取比较耗时，可以通过将其保存在用户本地来提供性能。在 HTML5 之前，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web存储">
+<meta property="og:url" content="http://yoursite.com/2017/12/09/Web存储/index.html">
 <meta property="og:site_name" content="twilight">
+<meta property="og:description" content="1. 前言Web 应用中的数据可以保存到两个地方，一个是 Web 服务器，一个是 Web 客户端。Web 服务器适合保存敏感信息，以及那些不希望被人篡改的数据，服务器安全可靠；然而，服务器端存储并非适合所有的网站，例如一些不太重要的信息放在用户的计算机上比较方便。比如应用状态，保存后可以方便用户在将来返回该状态。如果从服务端获取比较耗时，可以通过将其保存在用户本地来提供性能。在 HTML5 之前，">
+<meta property="og:image" content="http://yoursite.com/2017/12/09/Web存储/storageEvent.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/09/Web存储/support_pc.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/09/Web存储/support_mobile.png">
+<meta property="og:updated_time" content="2017-12-12T16:08:03.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="twilight">
+<meta name="twitter:title" content="Web存储">
+<meta name="twitter:description" content="1. 前言Web 应用中的数据可以保存到两个地方，一个是 Web 服务器，一个是 Web 客户端。Web 服务器适合保存敏感信息，以及那些不希望被人篡改的数据，服务器安全可靠；然而，服务器端存储并非适合所有的网站，例如一些不太重要的信息放在用户的计算机上比较方便。比如应用状态，保存后可以方便用户在将来返回该状态。如果从服务端获取比较耗时，可以通过将其保存在用户本地来提供性能。在 HTML5 之前，">
+<meta name="twitter:image" content="http://yoursite.com/2017/12/09/Web存储/storageEvent.png">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -145,16 +153,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Web存储" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Web存储" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/09/Web存储/">Web存储</a>
+    <h1 class="article-title" itemprop="name">
+      Web存储
     </h1>
   
 
@@ -168,11 +174,74 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>Web 应用中的数据可以保存到两个地方，一个是 Web 服务器，一个是 Web 客户端。<br>Web 服务器适合保存敏感信息，以及那些不希望被人篡改的数据，服务器安全可靠；然而，服务器端存储并非适合所有的网站，例如一些不太重要的信息放在用户的计算机上比较方便。比如应用状态，保存后可以方便用户在将来返回该状态。如果从服务端获取比较耗时，可以通过将其保存在用户本地来提供性能。<br>在 HTML5 之前，本地存储的方法是使用 cookie ，在浏览器和服务器之间传送信息，利用 cookie 保存少量数据确实方便，但是 cookie 大小受到限制，大多数浏览器对 cookie 的大小有 4096 字节的限制。另外有些用户禁用了浏览器或客户端设备接收 cookie 的能力，因此限制了这一功能。<br>HTML5 新增了更好的本地存储的功能，让我们在用户的计算机上保存信息更加方便，而且保存的数据可以无限期的保存在用户的计算机上，不会发送到服务器，并且能够通过简单的 js 对象操作它们，这个 Web 存储的新功能很适合开发离线应用和在本地保存用户信息。</p>
-        
-          <a class="article-more-a" href="/2017/12/09/Web存储/#more">more >></a>
-        
+<a id="more"></a>
+<h3 id="2-Web-存储简介"><a href="#2-Web-存储简介" class="headerlink" title="2. Web 存储简介"></a>2. Web 存储简介</h3><p>Web 存储分为两种，分别对应两个 JavaScript 对象：</p>
+<ul>
+<li>本地存储，对应 localStorage 对象，用于长期保存网站的数据，并且任何的页面都可以访问该数据。也就是说，如果有一个页面利用本地存储保存了数据，那么用户在一天后，一星期，甚至一年后该数据还是在那里，除非用户利用了浏览器的清除功能清除了数据。</li>
+<li>会话存储，对应 sessionStorage 对象，用于临时保存针对一个标签页的数据，在访客关闭标签页之前，这些数据是存在的，而关闭之后就会被浏览器删除。<br>无论是本地存储还是会话存储，都是与网站的域联系在一起。如果是在不同域名下，就不能访问数据了。另外使用不同的浏览器，那么存储的数据也将是不同的。<br>需要注意的是，尽管 HTML5 没有硬性规定存储空间的上限，但是大多数浏览器都把本地存储的限制定位5MB。</li>
+</ul>
+<h4 id="2-1-存储数据"><a href="#2-1-存储数据" class="headerlink" title="2.1 存储数据"></a>2.1 存储数据</h4><p>要保存数据到本地存储或会话存储中，需要为该数据规定一个名字，这个名字叫做键，可以通过键来取回数据。要保存数据，需使用 localStorage.setItem() 方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">localStorage.setItem(keyName, data);</div></pre></td></tr></table></figure>
+<p>例如，假设你想保护用户名，那么可以使用叫做 username 的键：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">localStorage.setItem(&quot;username&quot;, &quot;Twilight&quot;);</div></pre></td></tr></table></figure>
+<p>读取本地存储中的数据跟保存数据一样简单，只需使用 localStorage.getItem() 方法。例如，下面这行代码可以读出前面保存的用户名：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">localStorage.getItem(&quot;username&quot;);</div></pre></td></tr></table></figure>
+<p>会话存储也一样简单，唯一的区别是要使用 sessionStorage 对象，而不是 localStorage 对象。</p>
+<p>另外 Web 存储还支持两种读写数据的语法。除了前面的方法，还可以使用属性和索引方式。用属性名时，可以通过 localStorage.username 读取，用索引方式，可以通过 localStorage[“username”] ，但是大多数情况下还是使用 getItem() 和 setItem() 最好，因为歧义最少。</p>
+<p>需要注意的是，可能在测试的时候需要从 Web 服务器上打开的页面才能使用 Web 存储，因为浏览器要限制 Web 空间的大小。</p>
+<h3 id="3-深入-Web-存储"><a href="#3-深入-Web-存储" class="headerlink" title="3.深入 Web 存储"></a>3.深入 Web 存储</h3><h4 id="3-1-删除数据项"><a href="#3-1-删除数据项" class="headerlink" title="3.1 删除数据项"></a>3.1 删除数据项</h4><p>调用 removeItem() 方法，传入键名，就可以删除不要的数据项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">localStorage.removeItem(&quot;username&quot;);</div></pre></td></tr></table></figure>
+<p>另外可以调用 clear() 方法清空本地的会话数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sessionStorage.clear();</div></pre></td></tr></table></figure>
+<h4 id="3-2-查找数据项"><a href="#3-2-查找数据项" class="headerlink" title="3.2 查找数据项"></a>3.2 查找数据项</h4><p>要搜索某一个数据项，只要知道键名即可，另外也可以使用 key 方法从本地或会话存储中取得所有的数据项。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">for (var i=0; i&lt;localStorage.length; i++) &#123;</div><div class="line">    //取得当前位置数据项的键</div><div class="line">    var key = localStorage.key(i);</div><div class="line">    //取得该键保存的数据值</div><div class="line">    var item = localStorage.getItem(key);</div><div class="line"></div><div class="line">    console.log(key, item);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="3-3-保存数值、日期、对象"><a href="#3-3-保存数值、日期、对象" class="headerlink" title="3.3 保存数值、日期、对象"></a>3.3 保存数值、日期、对象</h4><p>通过 localStorage 和 sessionStorage 保存数据时，该数据将自动被转换成文本字符串。</p>
+<ul>
+<li>对于数值，可以通过 Number() 函数解决。</li>
+<li>对于日期，可以先按照规定按照既定的格式日期格式转换成相应的文本，然后在根据取得的文本创建日期对象。</li>
+<li>对于对象，可以利用 json 编码，在存储数据前，利用 JSON.stringigy() 方法将对象转换成文本形式，然后再传给 setItem() 方法；在取得数据后，利用 JSON.parse() 方法，将文本转换回对象。</li>
+</ul>
+<h4 id="3-4-响应-Web-存储变化"><a href="#3-4-响应-Web-存储变化" class="headerlink" title="3.4 响应 Web 存储变化"></a>3.4 响应 Web 存储变化</h4><p>Web 存储为我们提供了在不同浏览器窗口间通信的机制，具体来说就是本地存储或会话存储发生变化时，其他查看同一页面或者同一站点的其他页面的窗口就会触发 window.onStorage 事件。<br>所谓存储变化，是指向存储中添加新的数据项，修改既有数据项，删除数据项或清除所有数据。但是，那些对存储不产生影响的操作（比如用既有的键名保存同样的值，或者清除原本就是空的存储空间），不会引发 onStorage 事件。<br>onStorage 事件可以提供发生变化的键(key)和值、原来的值(oldValue)、新的值(newValue)和导致此次变化的页面的URL(url)，如果 onStorage 事件反映的是插入新数据项，那么 oldValue 属性是 null 或者空字符串。 </p>
+<h3 id="4-注意事项"><a href="#4-注意事项" class="headerlink" title="4. 注意事项"></a>4. 注意事项</h3><ul>
+<li>在 setItem 时，可能会达到的5MB大小限制，在存储容量快满时，会造成 getItem 性能急剧下降，最好加上错误捕捉：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">try &#123;</div><div class="line">  localStorage.setItem(key, value);</div><div class="line">&#125; catch(e) &#123;</div><div class="line">  if (isQuotaExceeded(e)) &#123;</div><div class="line">    // 提醒用户做清理的操作</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function isQuotaExceeded(e) &#123;</div><div class="line">  var quotaExceeded = false;</div><div class="line">  if (e) &#123;</div><div class="line">    if (e.code) &#123;</div><div class="line">      switch (e.code) &#123;</div><div class="line">        case 22:</div><div class="line">          quotaExceeded = true;</div><div class="line">          break;</div><div class="line">        case 1014:</div><div class="line">          // Firefox</div><div class="line">          if (e.name === &apos;NS_ERROR_DOM_QUOTA_REACHED&apos;) &#123;</div><div class="line">            quotaExceeded = true;</div><div class="line">          &#125;</div><div class="line">          break;</div><div class="line">      &#125;</div><div class="line">    &#125; else if (e.number === -2147024882) &#123;</div><div class="line">      // Internet Explorer 8</div><div class="line">      quotaExceeded = true;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  return quotaExceeded;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="5-其他用法"><a href="#5-其他用法" class="headerlink" title="5. 其他用法"></a>5. 其他用法</h3><h4 id="5-1-同源窗口通信"><a href="#5-1-同源窗口通信" class="headerlink" title="5.1 同源窗口通信"></a>5.1 同源窗口通信</h4><p>应用场景: 多窗口共用的一些组件，对数据实时同步有较高要求的应用场景。比如通知中心上面的未读数量，两个窗口，A 窗口更新为 8，切到 B 窗口还是 9，这就造成了体验不一致，这个例子可能还觉得无关痛痒；再比如购物车，两个产品窗口，A 窗口添加到购物车，切到 B 窗口添加到购物车，发现没有 A 添加的产品，这样就比较严重了。这当然也可以通过每个窗口都与后台建立连接来更新，但用户如果开十几个窗口就开销大了。</p>
+<p>有了同源窗口通信，我们就可以只有一个窗口与后台建立连接，收到更新后，广播给其他窗口就可以。原理如下：</p>
+<p><img src="/2017/12/09/Web存储/storageEvent.png" alt="find"></p>
+<p>其实原理简单，每次 localStorage 中有任何变动都会触发一个 storage 事件，所有窗口都监听这个事件，一旦有窗口更新 localStorage，其他窗口都会收到通知，根据事件中的 key 把不关心的变动过滤掉，但是要实现一套完整的广播机制还是有些复杂，你需要：</p>
+<p>管理好每个窗口的唯一 ID<br>防止消息重复<br>防止消息发给不关心的窗口<br>窗口keep alive<br>主窗口选举<br>…</p>
+<p>开源实现：<a href="https://github.com/diy/intercom.js" target="_blank" rel="external">diy/intercom.js</a>、<a href="https://github.com/tejacques/crosstab" target="_blank" rel="external">tejacques/crosstab</a></p>
+<h3 id="6-浏览器兼容性"><a href="#6-浏览器兼容性" class="headerlink" title="6. 浏览器兼容性"></a>6. 浏览器兼容性</h3><p><img src="/2017/12/09/Web存储/support_pc.png" alt="find"><br><img src="/2017/12/09/Web存储/support_mobile.png" alt="find">      </p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="pay.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -181,16 +250,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/09/Web存储/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/12/09/Web存储/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/11/05/浅谈Web Worker/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">浅谈Web Worker</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -210,74 +338,14 @@
 
 
 
-
   
-    <article id="post-浅谈Web Worker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/浅谈Web Worker/">浅谈Web Worker</a>
-    </h1>
   
 
-        
-        <a href="/2017/11/05/浅谈Web Worker/" class="archive-article-date">
-  	<time datetime="2017-11-05T14:43:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><p>JavaScript刚问世的时候，没有人担心它的性能，它只是一种简单的语言，可以在网页运行小段的脚本。而现在，JavaScript已经成为web开发领域的王者，只要想给网页添加交互性，开发人员就会用到它。然而，JavaScript与它现在的地位相比，仍然有一些不相称的地方。</p>
-<p>比如，JavaScript处理大计算量任务时会始终在前台运行，因而耗费时间的代码会打断用户，阻塞页面，直到任务完成，导致用户体验很不好。</p>
-        
-          <a class="article-more-a" href="/2017/11/05/浅谈Web Worker/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/浅谈Web Worker/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
+  
 
   
+
   
 
 
@@ -300,8 +368,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
