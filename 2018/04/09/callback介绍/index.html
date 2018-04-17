@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>twilight</title>
+  <title>回调函数介绍 | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="twilight">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="1. 介绍：回调JavaScript中的许多操作都是异步的。 例如，看看这个函数loadScript(src)： 12345function loadScript(src) &amp;#123;  let script = document.createElement(&amp;apos;script&amp;apos;);  script.src = src;  document.head.append(script)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="回调函数介绍">
+<meta property="og:url" content="http://yoursite.com/2018/04/09/callback介绍/index.html">
 <meta property="og:site_name" content="twilight">
+<meta property="og:description" content="1. 介绍：回调JavaScript中的许多操作都是异步的。 例如，看看这个函数loadScript(src)： 12345function loadScript(src) &amp;#123;  let script = document.createElement(&amp;apos;script&amp;apos;);  script.src = src;  document.head.append(script)">
+<meta property="og:updated_time" content="2018-04-17T15:59:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="twilight">
+<meta name="twitter:title" content="回调函数介绍">
+<meta name="twitter:description" content="1. 介绍：回调JavaScript中的许多操作都是异步的。 例如，看看这个函数loadScript(src)： 12345function loadScript(src) &amp;#123;  let script = document.createElement(&amp;apos;script&amp;apos;);  script.src = src;  document.head.append(script)">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -145,16 +149,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-callback介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-callback介绍" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/09/callback介绍/">回调函数介绍</a>
+    <h1 class="article-title" itemprop="name">
+      回调函数介绍
     </h1>
   
 
@@ -170,11 +172,98 @@
         <h3 id="1-介绍：回调"><a href="#1-介绍：回调" class="headerlink" title="1. 介绍：回调"></a>1. 介绍：回调</h3><p>JavaScript中的许多操作都是异步的。</p>
 <p>例如，看看这个函数loadScript(src)：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function loadScript(src) &#123;</div><div class="line">  let script = document.createElement(&apos;script&apos;);</div><div class="line">  script.src = src;</div><div class="line">  document.head.append(script);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/04/09/callback介绍/#more">more >></a>
-        
+<a id="more"></a>
+<p>该函数的目的是加载一个新的脚本。当它添加<code>&lt;script src=&quot;…&quot;&gt;</code>到文档时，浏览器会加载并执行它。</p>
+<p>我们可以像这样使用它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 加载并执行脚本</div><div class="line">loadScript(&apos;/my/script.js&apos;);</div></pre></td></tr></table></figure>
+<p>该函数被称为“异步”，因为动作（脚本加载）现在不会完成，但稍后会完成。</p>
+<p>该调用启动脚本加载，然后继续执行。在加载脚本时，下面的代码可能会完成执行，如果加载需要时间，其他脚本也可能同时运行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">loadScript(&apos;/my/script.js&apos;);</div><div class="line">// 位于loadScript后面的代码不会等到loadScript的脚本执行完成后再运行</div><div class="line">// ...</div></pre></td></tr></table></figure>
+<p>现在让我们假设我们想在加载时使用新脚本。它可能会声明新的函数，所以我们想运行它们。</p>
+<p>但是如果我们在loadScript(…)运行结束后立即这样做，那是行不通的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 该脚本有函数 &quot;function newFunction() &#123;…&#125;&quot;</div><div class="line">loadScript(&apos;/my/script.js&apos;); </div><div class="line"></div><div class="line">newFunction(); // 没有定义该函数!</div></pre></td></tr></table></figure>
+<p>自然，浏览器可能没有时间加载脚本。所以立即调用新函数失败。截至目前，loadScript函数没有提供跟踪加载完成的方法。脚本加载并最终运行，就这些了。但是我们想知道它何时发生，从该脚本中使用新的函数和变量。</p>
+<p>让我们添加一个callback函数作为第二个参数，loadScript以便在脚本加载时执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function loadScript(src, callback) &#123;</div><div class="line">  let script = document.createElement(&apos;script&apos;);</div><div class="line">  script.src = src;</div><div class="line"></div><div class="line">  script.onload = () =&gt; callback(script);</div><div class="line"></div><div class="line">  document.head.append(script);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在，如果我们想从脚本调用新的函数，我们应该在回调中写入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">loadScript(&apos;/my/script.js&apos;, function() &#123;</div><div class="line">  // 回调函数在脚本加载newFunction()后执行，所以能正常运行</div><div class="line">  newFunction(); </div><div class="line">  ...</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这就是一种方式：第二个参数是一个在完成脚本时运行的函数（通常是匿名的）。</p>
+<p>下面是一个真实脚本的可运行示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function loadScript(src, callback) &#123;</div><div class="line">  let script = document.createElement(&apos;script&apos;);</div><div class="line">  script.src = src;</div><div class="line">  script.onload = () =&gt; callback(script);</div><div class="line">  document.head.append(script);</div><div class="line">&#125;</div><div class="line"></div><div class="line">loadScript(&apos;https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.2.0/lodash.js&apos;, script =&gt; &#123;</div><div class="line">  alert(`Cool, the $&#123;script.src&#125; is loaded`);</div><div class="line">  alert( _ ); // 函数在script脚本里面定义</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这就是所谓的“基于回调”的异步编程风格。一个异步执行某个功能的函数应该提供一个callback参数，我们可以在该函数完成后让它运行。</p>
+<p>我们在这里做了loadScript，但当然这是一个普遍的方法。</p>
+<h3 id="2-回调中的回调"><a href="#2-回调中的回调" class="headerlink" title="2. 回调中的回调"></a>2. 回调中的回调</h3><p>如何顺序加载两个脚本：先执行第一个，然后是第二个脚本？</p>
+<p>自然的解决方案是将第二个loadScript调用放在回调中，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">loadScript(&apos;/my/script.js&apos;, function(script) &#123;</div><div class="line"></div><div class="line">  alert(`Cool, the $&#123;script.src&#125; is loaded, let&apos;s load one more`);</div><div class="line"></div><div class="line">  loadScript(&apos;/my/script2.js&apos;, function(script) &#123;</div><div class="line">    alert(`Cool, the second script is loaded`);</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>外部loadScript完成后，回调启动内部回调。</p>
+<p>如果我们想要一个更多的脚本…怎么办？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">loadScript(&apos;/my/script.js&apos;, function(script) &#123;</div><div class="line"></div><div class="line">  loadScript(&apos;/my/script2.js&apos;, function(script) &#123;</div><div class="line"></div><div class="line">    loadScript(&apos;/my/script3.js&apos;, function(script) &#123;</div><div class="line">      ...</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">  &#125;)</div><div class="line"></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>所以，每一个新的动作都在回调中。对于少数脚本来说这很好，但对于多个脚本l来说并不友好，所以我们很快会看到其他的方式。</p>
+<h3 id="3-处理错误"><a href="#3-处理错误" class="headerlink" title="3. 处理错误"></a>3. 处理错误</h3><p>在上面的例子中，我们没有考虑错误。如果脚本加载失败怎么办？我们的回调应该能够对此作出反应。</p>
+<p>以下loadScript是跟踪加载错误的改进版本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function loadScript(src, callback) &#123;</div><div class="line">  let script = document.createElement(&apos;script&apos;);</div><div class="line">  script.src = src;</div><div class="line"></div><div class="line">  script.onload = () =&gt; callback(null, script);</div><div class="line">  script.onerror = () =&gt; callback(new Error(`Script load error for $&#123;src&#125;`));</div><div class="line"></div><div class="line">  document.head.append(script);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>它要求callback(null, script)成功加载，否则执行callback(error)。</p>
+<p>用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">loadScript(&apos;/my/script.js&apos;, function(error, script) &#123;</div><div class="line">  if (error) &#123;</div><div class="line">    // 处理错误</div><div class="line">  &#125; else &#123;</div><div class="line">    // 脚本成功运行</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>我们再次使用的配方loadScript实际上很常见。它被称为“错误优先回调”风格。</p>
+<p>该约定是：</p>
+<ul>
+<li><p>callback如果发生错误，则保留第一个参数。然后callback(error)被调用。</p>
+</li>
+<li><p>第二个参数（如果需要，还有下一个参数）是为了获得成功的结果。然后callback(null, result1, result2…)被调用。</p>
+</li>
+</ul>
+<p>因此，单个callback函数既用于报告错误又用于传回结果。</p>
+<h3 id="4-末日金字塔"><a href="#4-末日金字塔" class="headerlink" title="4. 末日金字塔"></a>4. 末日金字塔</h3><p>从第一眼看来，上面是一种可行的异步编码方式。事实确实如此。对于一个或两个嵌套的调用看起来很好。</p>
+<p>但是对于接连出现的多个异步操作，我们将拥有这样的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">loadScript(&apos;1.js&apos;, function(error, script) &#123;</div><div class="line"></div><div class="line">  if (error) &#123;</div><div class="line">    handleError(error);</div><div class="line">  &#125; else &#123;</div><div class="line">    // ...</div><div class="line">    loadScript(&apos;2.js&apos;, function(error, script) &#123;</div><div class="line">      if (error) &#123;</div><div class="line">        handleError(error);</div><div class="line">      &#125; else &#123;</div><div class="line">        // ...</div><div class="line">        loadScript(&apos;3.js&apos;, function(error, script) &#123;</div><div class="line">          if (error) &#123;</div><div class="line">            handleError(error);</div><div class="line">          &#125; else &#123;</div><div class="line">            // ...continue after all scripts are loaded (*)</div><div class="line">          &#125;</div><div class="line">        &#125;);</div><div class="line"></div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>在上面的代码中：</p>
+<p>我们加载1.js，然后如果没有错误;我们加载2.js，然后如果没有错误;我们加载3.js，然后如果没有错误 … 做其他事情(*)。</p>
+<p>随着调用变得更加嵌套，代码变得越来越深，越来越难以管理，特别是如果我们有真正的代码而不是…，这回导致可能包含更多循环，条件语句等等。</p>
+<p>这有时被称为“回调地狱”。</p>
+<p>每个异步操作都会使嵌套调用的“金字塔”向右扩展。很快它就失去了控制。</p>
+<p>所以这种编码方式不是很好。</p>
+<p>我们可以尝试通过使每个动作成为独立的功能来缓解问题，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">loadScript(&apos;1.js&apos;, step1);</div><div class="line"></div><div class="line">function step1(error, script) &#123;</div><div class="line">  if (error) &#123;</div><div class="line">    handleError(error);</div><div class="line">  &#125; else &#123;</div><div class="line">    // ...</div><div class="line">    loadScript(&apos;2.js&apos;, step2);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function step2(error, script) &#123;</div><div class="line">  if (error) &#123;</div><div class="line">    handleError(error);</div><div class="line">  &#125; else &#123;</div><div class="line">    // ...</div><div class="line">    loadScript(&apos;3.js&apos;, step3);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function step3(error, script) &#123;</div><div class="line">  if (error) &#123;</div><div class="line">    handleError(error);</div><div class="line">  &#125; else &#123;</div><div class="line">    // ...继续直到所有脚本都加载完</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>看到没有？它也是如此，现在没有深厚的嵌套，因为我们将每个脚本都作为一个独立的顶层函数。</p>
+<p>上面的代码也能正常运行，但是代码看起来像一个撕裂的电子表格。这很难阅读，你可能已经注意到了。人们在阅读时需要在各个部分之间跳跃。这很不方便，特别是读者不熟悉代码并且不知道在何处跳跃。</p>
+<p>此外，命名的功能step*都是一次性使用，它们只是为了避免“回调地狱”而创建。没有人会在该脚本之外重复使用它们。所以这里有一些名称空间混乱。</p>
+<p>我们希望有更好的东西。</p>
+<p>幸运的是，还有其他方法可以避免这种“回调地狱”。最好的方法之一是使用“promises”。</p>
+<p>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.<br>.</p>
+<h3 id="5-写在最后"><a href="#5-写在最后" class="headerlink" title="5. 写在最后"></a>5. 写在最后</h3><p>本篇是翻译！<br>本篇是翻译！<br>本篇是翻译！</p>
+<p>如有错误，欢迎指出！</p>
+<p>想看更完整的内容，可点击 =&gt; 原文地址：</p>
+<p><a href="https://javascript.info/callbacks" target="_blank" rel="external">https://javascript.info/callbacks</a></p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="pay.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -183,16 +272,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/09/callback介绍/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/04/09/callback介绍/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/04/移动端适配/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">移动端适配</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -212,269 +360,14 @@
 
 
 
-
   
-    <article id="post-移动端适配" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/04/移动端适配/">移动端适配</a>
-    </h1>
   
 
-        
-        <a href="/2018/03/04/移动端适配/" class="archive-article-date">
-  	<time datetime="2018-03-04T05:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>在互联网快速发展的今天，手机的更新迭代速度越来越快，手机的种类和尺寸也越来越多，作为前端小伙伴们的我们需要去适配一款又一款的新机型。对于移动端适配，不同的公司、不同的团队有不同的解决方案。</p>
-        
-          <a class="article-more-a" href="/2018/03/04/移动端适配/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/04/移动端适配/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-谈谈函数参数传递" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/12/谈谈函数参数传递/">谈谈函数参数传递</a>
-    </h1>
   
 
-        
-        <a href="/2018/01/12/谈谈函数参数传递/" class="archive-article-date">
-  	<time datetime="2018-01-12T14:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-按值传递"><a href="#1-按值传递" class="headerlink" title="1. 按值传递"></a>1. 按值传递</h3><p>ECMAScript中函数的参数都是按值传递，指的是把函数外部的值复制给函数内部的参数，相当于把值从一个变量复制到另一个变量。</p>
-        
-          <a class="article-more-a" href="/2018/01/12/谈谈函数参数传递/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/12/谈谈函数参数传递/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Web存储" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/09/Web存储/">Web存储</a>
-    </h1>
   
 
-        
-        <a href="/2017/12/09/Web存储/" class="archive-article-date">
-  	<time datetime="2017-12-09T14:51:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>Web 应用中的数据可以保存到两个地方，一个是 Web 服务器，一个是 Web 客户端。<br>Web 服务器适合保存敏感信息，以及那些不希望被人篡改的数据，服务器安全可靠；然而，服务器端存储并非适合所有的网站，例如一些不太重要的信息放在用户的计算机上比较方便。比如应用状态，保存后可以方便用户在将来返回该状态。如果从服务端获取比较耗时，可以通过将其保存在用户本地来提供性能。<br>在 HTML5 之前，本地存储的方法是使用 cookie ，在浏览器和服务器之间传送信息，利用 cookie 保存少量数据确实方便，但是 cookie 大小受到限制，大多数浏览器对 cookie 的大小有 4096 字节的限制。另外有些用户禁用了浏览器或客户端设备接收 cookie 的能力，因此限制了这一功能。<br>HTML5 新增了更好的本地存储的功能，让我们在用户的计算机上保存信息更加方便，而且保存的数据可以无限期的保存在用户的计算机上，不会发送到服务器，并且能够通过简单的 js 对象操作它们，这个 Web 存储的新功能很适合开发离线应用和在本地保存用户信息。</p>
-        
-          <a class="article-more-a" href="/2017/12/09/Web存储/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/09/Web存储/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浅谈Web Worker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/浅谈Web Worker/">浅谈Web Worker</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/05/浅谈Web Worker/" class="archive-article-date">
-  	<time datetime="2017-11-05T14:43:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><p>JavaScript刚问世的时候，没有人担心它的性能，它只是一种简单的语言，可以在网页运行小段的脚本。而现在，JavaScript已经成为web开发领域的王者，只要想给网页添加交互性，开发人员就会用到它。然而，JavaScript与它现在的地位相比，仍然有一些不相称的地方。</p>
-<p>比如，JavaScript处理大计算量任务时会始终在前台运行，因而耗费时间的代码会打断用户，阻塞页面，直到任务完成，导致用户体验很不好。</p>
-        
-          <a class="article-more-a" href="/2017/11/05/浅谈Web Worker/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/浅谈Web Worker/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -497,8 +390,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
