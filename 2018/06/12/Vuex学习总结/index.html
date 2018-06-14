@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>twilight</title>
+  <title>Vuex学习总结 | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="twilight">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="1. 前言使用 Vue 时，当多个组件共享状态，组件之间的状态传递非常繁琐，Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式（官网）。Vuex 将组件的共享状态抽离出来，集中管理，使得组件可以直接获取状态和触发某些变化，并且 Vuex 的状态数据是响应式的，即一个组件触发了 Vuex 的状态数据改变，其他使用到该状态数据的组件也会响应式的发生变化。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vuex学习总结">
+<meta property="og:url" content="http://yoursite.com/2018/06/12/Vuex学习总结/index.html">
 <meta property="og:site_name" content="twilight">
+<meta property="og:description" content="1. 前言使用 Vue 时，当多个组件共享状态，组件之间的状态传递非常繁琐，Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式（官网）。Vuex 将组件的共享状态抽离出来，集中管理，使得组件可以直接获取状态和触发某些变化，并且 Vuex 的状态数据是响应式的，即一个组件触发了 Vuex 的状态数据改变，其他使用到该状态数据的组件也会响应式的发生变化。">
+<meta property="og:image" content="http://yoursite.com/2018/06/12/Vuex学习总结/core.png">
+<meta property="og:updated_time" content="2018-06-14T16:35:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="twilight">
+<meta name="twitter:title" content="Vuex学习总结">
+<meta name="twitter:description" content="1. 前言使用 Vue 时，当多个组件共享状态，组件之间的状态传递非常繁琐，Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式（官网）。Vuex 将组件的共享状态抽离出来，集中管理，使得组件可以直接获取状态和触发某些变化，并且 Vuex 的状态数据是响应式的，即一个组件触发了 Vuex 的状态数据改变，其他使用到该状态数据的组件也会响应式的发生变化。">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/12/Vuex学习总结/core.png">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -145,16 +151,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-Vuex学习总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-Vuex学习总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/12/Vuex学习总结/">Vuex学习总结</a>
+    <h1 class="article-title" itemprop="name">
+      Vuex学习总结
     </h1>
   
 
@@ -168,11 +172,39 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>使用 Vue 时，当多个组件共享状态，组件之间的状态传递非常繁琐，Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式（官网）。Vuex 将组件的共享状态抽离出来，集中管理，使得组件可以直接获取状态和触发某些变化，并且 Vuex 的状态数据是响应式的，即一个组件触发了 Vuex 的状态数据改变，其他使用到该状态数据的组件也会响应式的发生变化。</p>
-        
-          <a class="article-more-a" href="/2018/06/12/Vuex学习总结/#more">more >></a>
-        
+<a id="more"></a>
+<h4 id="2-核心"><a href="#2-核心" class="headerlink" title="2. 核心"></a>2. 核心</h4><p><img src="/2018/06/12/Vuex学习总结/core.png" alt="find"></p>
+<p>Vuex 的核心是store。</p>
+<p>未完待续….</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="pay.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -181,16 +213,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/12/Vuex学习总结/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/12/Vuex学习总结/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/15/React处理事件响应/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">React处理事件响应</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -210,401 +301,14 @@
 
 
 
-
   
-    <article id="post-React处理事件响应" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/15/React处理事件响应/">React处理事件响应</a>
-    </h1>
   
 
-        
-        <a href="/2018/05/15/React处理事件响应/" class="archive-article-date">
-  	<time datetime="2018-05-15T14:05:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h3><p>处理事件响应是Web应用中非常重要的一部分。React中，处理事件响应的方式有多种。</p>
-        
-          <a class="article-more-a" href="/2018/05/15/React处理事件响应/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/15/React处理事件响应/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-callback介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/09/callback介绍/">回调函数介绍</a>
-    </h1>
   
 
-        
-        <a href="/2018/04/09/callback介绍/" class="archive-article-date">
-  	<time datetime="2018-04-09T13:46:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-介绍：回调"><a href="#1-介绍：回调" class="headerlink" title="1. 介绍：回调"></a>1. 介绍：回调</h3><p>JavaScript中的许多操作都是异步的。</p>
-<p>例如，看看这个函数loadScript(src)：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function loadScript(src) &#123;</div><div class="line">  let script = document.createElement(&apos;script&apos;);</div><div class="line">  script.src = src;</div><div class="line">  document.head.append(script);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/04/09/callback介绍/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/09/callback介绍/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-移动端适配" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/04/移动端适配/">移动端适配</a>
-    </h1>
   
 
-        
-        <a href="/2018/03/04/移动端适配/" class="archive-article-date">
-  	<time datetime="2018-03-04T05:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>在互联网快速发展的今天，手机的更新迭代速度越来越快，手机的种类和尺寸也越来越多，作为前端小伙伴们的我们需要去适配一款又一款的新机型。对于移动端适配，不同的公司、不同的团队有不同的解决方案。</p>
-        
-          <a class="article-more-a" href="/2018/03/04/移动端适配/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/04/移动端适配/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-谈谈函数参数传递" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/12/谈谈函数参数传递/">谈谈函数参数传递</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/12/谈谈函数参数传递/" class="archive-article-date">
-  	<time datetime="2018-01-12T14:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-按值传递"><a href="#1-按值传递" class="headerlink" title="1. 按值传递"></a>1. 按值传递</h3><p>ECMAScript中函数的参数都是按值传递，指的是把函数外部的值复制给函数内部的参数，相当于把值从一个变量复制到另一个变量。</p>
-        
-          <a class="article-more-a" href="/2018/01/12/谈谈函数参数传递/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/12/谈谈函数参数传递/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Web存储" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/09/Web存储/">Web存储</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/09/Web存储/" class="archive-article-date">
-  	<time datetime="2017-12-09T14:51:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>Web 应用中的数据可以保存到两个地方，一个是 Web 服务器，一个是 Web 客户端。<br>Web 服务器适合保存敏感信息，以及那些不希望被人篡改的数据，服务器安全可靠；然而，服务器端存储并非适合所有的网站，例如一些不太重要的信息放在用户的计算机上比较方便。比如应用状态，保存后可以方便用户在将来返回该状态。如果从服务端获取比较耗时，可以通过将其保存在用户本地来提供性能。<br>在 HTML5 之前，本地存储的方法是使用 cookie ，在浏览器和服务器之间传送信息，利用 cookie 保存少量数据确实方便，但是 cookie 大小受到限制，大多数浏览器对 cookie 的大小有 4096 字节的限制。另外有些用户禁用了浏览器或客户端设备接收 cookie 的能力，因此限制了这一功能。<br>HTML5 新增了更好的本地存储的功能，让我们在用户的计算机上保存信息更加方便，而且保存的数据可以无限期的保存在用户的计算机上，不会发送到服务器，并且能够通过简单的 js 对象操作它们，这个 Web 存储的新功能很适合开发离线应用和在本地保存用户信息。</p>
-        
-          <a class="article-more-a" href="/2017/12/09/Web存储/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/09/Web存储/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-浅谈Web Worker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/浅谈Web Worker/">浅谈Web Worker</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/05/浅谈Web Worker/" class="archive-article-date">
-  	<time datetime="2017-11-05T14:43:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><p>JavaScript刚问世的时候，没有人担心它的性能，它只是一种简单的语言，可以在网页运行小段的脚本。而现在，JavaScript已经成为web开发领域的王者，只要想给网页添加交互性，开发人员就会用到它。然而，JavaScript与它现在的地位相比，仍然有一些不相称的地方。</p>
-<p>比如，JavaScript处理大计算量任务时会始终在前台运行，因而耗费时间的代码会打断用户，阻塞页面，直到任务完成，导致用户体验很不好。</p>
-        
-          <a class="article-more-a" href="/2017/11/05/浅谈Web Worker/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/浅谈Web Worker/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -627,8 +331,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
