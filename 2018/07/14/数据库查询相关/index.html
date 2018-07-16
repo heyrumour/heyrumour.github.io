@@ -6,20 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Vuex学习总结 | twilight</title>
+  <title>数据库查询相关 | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. 前言使用 Vue 时，当多个组件共享状态，组件之间的状态传递非常繁琐，Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式（官网）。Vuex 将组件的共享状态抽离出来，集中管理，使得组件可以直接获取状态和触发某些变化，并且 Vuex 的状态数据是响应式的，即一个组件触发了 Vuex 的状态数据改变，其他使用到该状态数据的组件也会响应式的发生变化。">
+  <meta name="description" content="1. 前言上周四有幸听了公司某运维大牛🐟总的一个关于数据库查询的分享，获益不少。趁着周末的时间，再翻翻已经交还给老师的数据库查询知识。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vuex学习总结">
-<meta property="og:url" content="http://yoursite.com/2018/06/12/Vuex学习总结/index.html">
+<meta property="og:title" content="数据库查询相关">
+<meta property="og:url" content="http://yoursite.com/2018/07/14/数据库查询相关/index.html">
 <meta property="og:site_name" content="twilight">
-<meta property="og:description" content="1. 前言使用 Vue 时，当多个组件共享状态，组件之间的状态传递非常繁琐，Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式（官网）。Vuex 将组件的共享状态抽离出来，集中管理，使得组件可以直接获取状态和触发某些变化，并且 Vuex 的状态数据是响应式的，即一个组件触发了 Vuex 的状态数据改变，其他使用到该状态数据的组件也会响应式的发生变化。">
-<meta property="og:image" content="http://yoursite.com/2018/06/12/Vuex学习总结/core.png">
-<meta property="og:updated_time" content="2018-06-14T16:35:56.000Z">
+<meta property="og:description" content="1. 前言上周四有幸听了公司某运维大牛🐟总的一个关于数据库查询的分享，获益不少。趁着周末的时间，再翻翻已经交还给老师的数据库查询知识。">
+<meta property="og:updated_time" content="2018-07-16T02:22:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vuex学习总结">
-<meta name="twitter:description" content="1. 前言使用 Vue 时，当多个组件共享状态，组件之间的状态传递非常繁琐，Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式（官网）。Vuex 将组件的共享状态抽离出来，集中管理，使得组件可以直接获取状态和触发某些变化，并且 Vuex 的状态数据是响应式的，即一个组件触发了 Vuex 的状态数据改变，其他使用到该状态数据的组件也会响应式的发生变化。">
-<meta name="twitter:image" content="http://yoursite.com/2018/06/12/Vuex学习总结/core.png">
+<meta name="twitter:title" content="数据库查询相关">
+<meta name="twitter:description" content="1. 前言上周四有幸听了公司某运维大牛🐟总的一个关于数据库查询的分享，获益不少。趁着周末的时间，再翻翻已经交还给老师的数据库查询知识。">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -151,32 +149,29 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Vuex学习总结" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-数据库查询相关" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Vuex学习总结
+      数据库查询相关
     </h1>
   
 
         
-        <a href="/2018/06/12/Vuex学习总结/" class="archive-article-date">
-  	<time datetime="2018-06-12T15:59:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-12</time>
+        <a href="/2018/07/14/数据库查询相关/" class="archive-article-date">
+  	<time datetime="2018-07-14T06:28:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-14</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>使用 Vue 时，当多个组件共享状态，组件之间的状态传递非常繁琐，Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式（官网）。Vuex 将组件的共享状态抽离出来，集中管理，使得组件可以直接获取状态和触发某些变化，并且 Vuex 的状态数据是响应式的，即一个组件触发了 Vuex 的状态数据改变，其他使用到该状态数据的组件也会响应式的发生变化。</p>
+        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>上周四有幸听了公司某运维大牛🐟总的一个关于数据库查询的分享，获益不少。趁着周末的时间，再翻翻已经交还给老师的数据库查询知识。</p>
 <a id="more"></a>
-<h4 id="2-核心"><a href="#2-核心" class="headerlink" title="2. 核心"></a>2. 核心</h4><p><img src="/2018/06/12/Vuex学习总结/core.png" alt="find"></p>
-<p>Vuex 的核心是store。</p>
-<p>未完待续….</p>
-
+<h4 id="2-先挖个坑。。。。"><a href="#2-先挖个坑。。。。" class="headerlink" title="2. 先挖个坑。。。。"></a>2. 先挖个坑。。。。</h4>
       
 
       
@@ -260,7 +255,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/12/Vuex学习总结/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/07/14/数据库查询相关/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -274,18 +269,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/07/12/ES6模块/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          ES6模块
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/05/15/React处理事件响应/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">React处理事件响应</div>
+    <a href="/2018/07/12/ES6模块/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ES6模块</div>
       <i class="icon-circle-right"></i>
     </a>
   
