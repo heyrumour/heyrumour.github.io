@@ -6,14 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | twilight</title>
+  <title>IndexDB | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="twilight">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="1. 概念说到数据库，应该大家都熟悉，可以用来存储大量数据。比如，我们在淘宝上面搜索一本书，就回从淘宝巨大的数据库中查找。一直以来，数据库相关的都是服务端的工作。IndexDB的出现，让浏览器具备了创建本地数据库的能力。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IndexDB">
+<meta property="og:url" content="http://yoursite.com/2018/08/18/IndexDB/index.html">
 <meta property="og:site_name" content="twilight">
+<meta property="og:description" content="1. 概念说到数据库，应该大家都熟悉，可以用来存储大量数据。比如，我们在淘宝上面搜索一本书，就回从淘宝巨大的数据库中查找。一直以来，数据库相关的都是服务端的工作。IndexDB的出现，让浏览器具备了创建本地数据库的能力。">
+<meta property="og:image" content="http://yoursite.com/2018/08/18/IndexDB/db_1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/08/18/IndexDB/db_2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/08/18/IndexDB/db_3.jpeg">
+<meta property="og:image" content="http://yoursite.com/2018/08/18/IndexDB/db_4.jpeg">
+<meta property="og:updated_time" content="2018-08-19T18:30:02.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="twilight">
+<meta name="twitter:title" content="IndexDB">
+<meta name="twitter:description" content="1. 概念说到数据库，应该大家都熟悉，可以用来存储大量数据。比如，我们在淘宝上面搜索一本书，就回从淘宝巨大的数据库中查找。一直以来，数据库相关的都是服务端的工作。IndexDB的出现，让浏览器具备了创建本地数据库的能力。">
+<meta name="twitter:image" content="http://yoursite.com/2018/08/18/IndexDB/db_1.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -145,238 +154,189 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-IndexDB" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      IndexDB
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/18/IndexDB/" class="archive-article-date">
+
+        
+        <a href="/2018/08/18/IndexDB/" class="archive-article-date">
   	<time datetime="2018-08-18T12:12:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-18</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/18/IndexDB/">IndexDB</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h3><p>说到数据库，应该大家都熟悉，可以用来存储大量数据。比如，我们在淘宝上面搜索一本书，就回从淘宝巨大的数据库中查找。一直以来，数据库相关的都是服务端的工作。IndexDB的出现，让浏览器具备了创建本地数据库的能力。</p>
+<a id="more"></a>
+<h4 id="2-IndexDB的作用"><a href="#2-IndexDB的作用" class="headerlink" title="2. IndexDB的作用"></a>2. IndexDB的作用</h4><p>首先需要说明的是，IndexDB是取代不了服务端数据库的。但是在下面的场景可能会比较有用</p>
+<ul>
+<li><p>用于离线应用。在设备有网络的时候从服务端获取数据，保存在本地的数据库，以便在离线的时候可以访问；</p>
+</li>
+<li><p>提高性能。关于IndexDB的处理都是异步的，不会阻塞页面。</p>
+</li>
+<li><p>改进本地存储。对于数据量巨大或者结果复杂的数据，使用IndexDB会简单一些。</p>
+</li>
+</ul>
+<p>需要注意的是IndexDB对应于特定电脑的特定浏览器里面的特定网站，一旦任何一个改变了，都会对应新的IndexDB。</p>
+<h4 id="3-创建、连接数据库"><a href="#3-创建、连接数据库" class="headerlink" title="3. 创建、连接数据库"></a>3. 创建、连接数据库</h4><p>需要注意的是，在使用IndexDB的网页中，都需要先创建并连接数据库，通常在页面加载完成时(onload事件)进行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">window.onload = function() &#123;</div><div class="line">    // 通过indexedDB对象的open()函数创建了名为TestDB的数据库，版本号为1。</div><div class="line">    var db = window.indexedDB.open(&quot;TestDB&quot;, 1);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>假如用户是第一次访问页面，则会在浏览器创建新的数据库；如果用户已经访问过，就会直接拿到相应的数据库，其实是一样的意思。</p>
+<p>为了方便，假如我在Baidu首页控制台输入window.indexedDB.open(“TestDB”, 1)，可以看到</p>
+<p><img src="/2018/08/18/IndexDB/db_1.jpeg" alt="find"><br><img src="/2018/08/18/IndexDB/db_2.jpeg" alt="find"></p>
+<p>在百度页面下新增了名为TestDB，版本号为1的本地数据库。</p>
+<p>注意：如前面说到的，IndexDB的一切动作都是异步的，当执行open时，不会阻塞页面。</p>
+<h5 id="4-创建数据表"><a href="#4-创建数据表" class="headerlink" title="4. 创建数据表"></a>4. 创建数据表</h5><p>实际上，每一个indexedDB对象的方法都最少对应两个事件响应函数：onsuccess（成功）和onerror（失败）。</p>
+<p>创建数据表就是通过上面open方法特有的onupgradeneeded方法处理,该方法会在数据库版本不可用时（指定新的版本号）触发，相当于升级数据库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">db.onupgradeneeded = function(event) &#123;</div><div class="line">    // 通过db.result获取数据库对象</div><div class="line">    var dbcontent = db.result;</div><div class="line">    // 通过createObjectStore方法创建数据表</div><div class="line">    var objectStore = dbcontent.createObjectStore(&quot;Person&quot;, &#123; keyPath: &quot;name&quot; &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面代码创建了名为Person的数据表，主键为name。</p>
+<p><img src="/2018/08/18/IndexDB/db_3.jpeg" alt="find"></p>
+<h5 id="5-保存数据"><a href="#5-保存数据" class="headerlink" title="5. 保存数据"></a>5. 保存数据</h5><p>要保存数据，就应先有数据，IndexDB的数据通过对象初始化，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function LinkPerson(name, sex) &#123;</div><div class="line">    this.name = name;</div><div class="line">    this.sex = sex;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var name = document.getElementById(&apos;name&apos;).value;</div><div class="line">var sex = document.getElementById(&apos;sex&apos;).value;</div><div class="line">var dataObj = new LinkPerson(name, sex);</div></pre></td></tr></table></figure>
+<p>然后通过transaction()方法创建写入的操作，获取存储对象，传入数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// readwrite表示需要对Person数据表进行插入，更新或删除等操作，</div><div class="line">var transaction = dbcontent.transaction([&quot;Person&quot;], &quot;readwrite&quot;);  </div><div class="line"></div><div class="line">var objectStore = transaction.objectStore(&quot;Person&quot;);</div><div class="line"></div><div class="line">// 通过put()方法传入</div><div class="line">var sendData = objectStore.put(dataObj);</div></pre></td></tr></table></figure>
+<p>如下图，写入了一组测试数据：<br><img src="/2018/08/18/IndexDB/db_4.jpeg" alt="find"></p>
+<h3 id="未完待续…"><a href="#未完待续…" class="headerlink" title="未完待续…"></a>未完待续…</h3>
+      
 
-        <div class="article-info info-on-right">
-          
-          
-
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="pay.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/08/18/IndexDB/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/14/数据库查询相关/" class="archive-article-date">
-  	<time datetime="2018-07-14T06:28:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-14</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/14/数据库查询相关/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据库查询相关</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/14/数据库查询相关/">数据库查询相关</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/12/ES6模块/" class="archive-article-date">
-  	<time datetime="2018-07-12T15:15:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/12/ES6模块/">ES6模块</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/06/12/Vuex学习总结/" class="archive-article-date">
-  	<time datetime="2018-06-12T15:59:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/12/Vuex学习总结/">Vuex学习总结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/15/React处理事件响应/" class="archive-article-date">
-  	<time datetime="2018-05-15T14:05:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/15/React处理事件响应/">React处理事件响应</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/09/callback介绍/" class="archive-article-date">
-  	<time datetime="2018-04-09T13:46:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/09/callback介绍/">回调函数介绍</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/04/移动端适配/" class="archive-article-date">
-  	<time datetime="2018-03-04T05:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/04/移动端适配/">移动端适配</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/01/12/谈谈函数参数传递/" class="archive-article-date">
-  	<time datetime="2018-01-12T14:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/12/谈谈函数参数传递/">谈谈函数参数传递</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -399,8 +359,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
