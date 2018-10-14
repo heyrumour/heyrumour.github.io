@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018 | twilight</title>
+  <title>浅谈Web Worker | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="twilight">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+  <meta name="description" content="1. 背景JavaScript刚问世的时候，没有人担心它的性能，它只是一种简单的语言，可以在网页运行小段的脚本。而现在，JavaScript已经成为web开发领域的王者，只要想给网页添加交互性，开发人员就会用到它。然而，JavaScript与它现在的地位相比，仍然有一些不相称的地方。 比如，JavaScript处理大计算量任务时会始终在前台运行，因而耗费时间的代码会打断用户，阻塞页面，直到任务完成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈Web Worker">
+<meta property="og:url" content="http://yoursite.com/2017/11/05/Web Worker/index.html">
 <meta property="og:site_name" content="twilight">
+<meta property="og:description" content="1. 背景JavaScript刚问世的时候，没有人担心它的性能，它只是一种简单的语言，可以在网页运行小段的脚本。而现在，JavaScript已经成为web开发领域的王者，只要想给网页添加交互性，开发人员就会用到它。然而，JavaScript与它现在的地位相比，仍然有一些不相称的地方。 比如，JavaScript处理大计算量任务时会始终在前台运行，因而耗费时间的代码会打断用户，阻塞页面，直到任务完成">
+<meta property="og:image" content="http://yoursite.com/2017/11/05/Web%20Worker/find.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/05/Web%20Worker/error.png">
+<meta property="og:updated_time" content="2017-11-05T15:02:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="twilight">
+<meta name="twitter:title" content="浅谈Web Worker">
+<meta name="twitter:description" content="1. 背景JavaScript刚问世的时候，没有人担心它的性能，它只是一种简单的语言，可以在网页运行小段的脚本。而现在，JavaScript已经成为web开发领域的王者，只要想给网页添加交互性，开发人员就会用到它。然而，JavaScript与它现在的地位相比，仍然有一些不相称的地方。 比如，JavaScript处理大计算量任务时会始终在前台运行，因而耗费时间的代码会打断用户，阻塞页面，直到任务完成">
+<meta name="twitter:image" content="http://yoursite.com/2017/11/05/Web%20Worker/find.png">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -145,238 +152,209 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Web Worker" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      浅谈Web Worker
+    </h1>
+  
+
+        
+        <a href="/2017/11/05/Web Worker/" class="archive-article-date">
+  	<time datetime="2017-11-05T14:43:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><p>JavaScript刚问世的时候，没有人担心它的性能，它只是一种简单的语言，可以在网页运行小段的脚本。而现在，JavaScript已经成为web开发领域的王者，只要想给网页添加交互性，开发人员就会用到它。然而，JavaScript与它现在的地位相比，仍然有一些不相称的地方。</p>
+<p>比如，JavaScript处理大计算量任务时会始终在前台运行，因而耗费时间的代码会打断用户，阻塞页面，直到任务完成，导致用户体验很不好。</p>
+<a id="more"></a>
+<h3 id="2-Web-Worker的诞生"><a href="#2-Web-Worker的诞生" class="headerlink" title="2. Web Worker的诞生"></a>2. Web Worker的诞生</h3><p>HTML5提出了一个很好的解决方案，一个叫Web Worker的对象，能够在后台完成工作；在它工作期间，可以通过文本消息这种安全的方式与它通信。</p>
+<p>Web Worker适合用于那些费事的任务，换句话说，不应该用Web Worker来执行简单的任务。比如下图的搜索素数的任务，计算量很大。</p>
+<p><img src="/2017/11/05/Web Worker/find.png" alt="find"></p>
+<p>很明显，可以使用Web Worker来编写这个页面</p>
+<p>下面先来看一看这个例子的HTML代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;素数的查找从&lt;input id=&quot;from&quot; value=&quot;1&quot;&gt;到&lt;input id=&quot;to&quot; value=&quot;200000&quot;&gt;.&lt;/p&gt;</div><div class="line">&lt;button id=&quot;searchButton&quot; onclick=&quot;doSearch()&quot;&gt;开始查找&lt;/button&gt;</div><div class="line">&lt;button onclick=&quot;cancelSearch()&quot;&gt;取消&lt;/button&gt;</div><div class="line">&lt;div id=&quot;primeContainer&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;div id=&quot;status&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>页面使用了两个input控件，用于区间的输入，一个用于搜索的按钮和取消的按钮，还有两个div分别用于显示结果和状态信息。</p>
+<p>页面的js代码有点长，大概的操作是先取得输入框的两个数值，开始搜索，然后把找到的素数添加到页面中。其中搜索的任务是由另一个函数来完成的，保存在另一个js文件中(要理解Web Worker的作用，其实不必去看该函数，只要知道是个费时间的任务就可以了)。下面是dosearch函数的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">//取得搜索的区间</div><div class="line">var fromNumber = document.getElementById(&quot;from&quot;).value;</div><div class="line">var toNumber = document.getElementById(&quot;to&quot;).value;</div><div class="line"></div><div class="line">//执行搜索(findPrimes为上面说到的函数)，获得结果数组</div><div class="line">var primes = findPrimes(fromNumber, toNumber);</div><div class="line"></div><div class="line">//遍历结果数组，转化成果一个长的字符串</div><div class="line">var primeList = &quot;&quot;;</div><div class="line">for (var i=0; i&lt;primes.length; i++) &#123;</div><div class="line">    primeList += primes[i];</div><div class="line">    if (i != primes.length-1) primeList += &quot;, &quot;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//把字符串插入到页面中</div><div class="line">var displayList = document.getElementById(&quot;primeContainer&quot;);</div><div class="line">displayList.innerHTML = primeList;</div><div class="line"></div><div class="line">//更新搜索结果状态</div><div class="line">statusDisplay = document.getElementById(&quot;status&quot;);</div><div class="line">if (primeList.length == 0) &#123;</div><div class="line">    statusDisplay.innerHTML = &quot;查找失败&quot;;</div><div class="line">&#125;else &#123;</div><div class="line">    statusDisplay.innerHTML = &quot;结果如上&quot;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到，代码简明扼要，但是如果搜索的区间很大，搜索速度将会很慢，导致页面数分钟内没有反应，不能单击，滚动等。</p>
+<h3 id="3-把任务放在后台"><a href="#3-把任务放在后台" class="headerlink" title="3. 把任务放在后台"></a>3. 把任务放在后台</h3><p>Web Worker为解决这个问题定义了Worker对象，下面这行代码创建了一个新的Worker对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var worker = new Worker(&apos;PrimeWorker.js&apos;);</div></pre></td></tr></table></figure>
+<p>让Web Worker运行的代码要放在一个单独的js文件中，同时Web Worker是把相应的搜索结果通过页面的js代码渲染到页面中，不能通过PrimeWorker.js中的代码直接操作页面的HTML元素。</p>
+<ul>
+<li>页面与Web Worker之间通过消息来沟通，给Worker发送消息是使用该对象的postMessage()方法，然后Worker对象会通过onMessage()方法接收到该数据的一个副本，开始工作。</li>
+<li>同样地，Worker如果跟网页对话，也是调用自己的postMessage()方法，带上参数，网页也同样是在onMessage()方法中接收这些数据。</li>
+</ul>
+<p>需要注意的是：调用postMessage()方法的时候，只能给它传入一个值，所以通过把这两个值放到一个对象中，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">worker.postMessage(&#123;</div><div class="line">    form: 1,</div><div class="line">    to: 20000</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>好了，了解了Web Worker的一些基本定义后，我们来对前面的dosearch函数进行修改，不再让它自己搜索素数，而是创建一个Worker来承担相应的任务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">//定义一个全局的变量来保存Worker对象</div><div class="line">var worker;</div><div class="line"></div><div class="line">function doSearch() &#123;</div><div class="line">    //禁用按钮，防止搜索未运行完用户输入搜索区间</div><div class="line">    searchButton.disabled = true;</div><div class="line"></div><div class="line">    //创建Worker</div><div class="line">    worker = new Worker(&quot;./PrimeWorker.js&quot;);</div><div class="line"></div><div class="line">    //onmessage事件，从Worker那里接受结果</div><div class="line">    worker.onmessage = receivedWorkerMessage;</div><div class="line"></div><div class="line">    //搜索区间，发送给Worker</div><div class="line">    var fromNumber = document.getElementById(&quot;from&quot;).value;</div><div class="line">    var toNumber = document.getElementById(&quot;to&quot;).value;</div><div class="line">    worker.postMessage(&#123; </div><div class="line">        from: fromNumber,</div><div class="line">        to: toNumber</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    //状态信息</div><div class="line">    statusDisplay.innerHTML = &quot;web worker正在工作从(&quot;+fromNumber + &quot; 到 &quot; + toNumber + &quot;) ...&quot;;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下面，该PrimeWorker.js出场了，它接收到onMessage事件，执行搜索，然后发送给网页结果数据：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">onmessage = function(event) &#123;</div><div class="line">    //在该范围内搜索素数</div><div class="line">    var primes = findPrimes(event.data.from, event.data.to);</div><div class="line">    //搜索完成，把结果发回去网页</div><div class="line">    postMessage(primes);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//findPrimes函数，费事的素数寻找过程都在这里，还是看下吧</div><div class="line">function findPrimes(fromNumber, toNumber) &#123;</div><div class="line">    var list = [];</div><div class="line">    for (var i=fromNumber; i&lt;=toNumber; i++) &#123;</div><div class="line">        if (i&gt;1) list.push(i);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var maxDiv = Math.round(Math.sqrt(toNumber));</div><div class="line">    var primes = [];</div><div class="line">    var previousProgress;</div><div class="line"></div><div class="line">    for (var i=0; i&lt;list.length; i++) &#123;</div><div class="line">        var failed = false;</div><div class="line">        for (var j=2; j&lt;=maxDiv; j++) &#123;</div><div class="line">            if ((list[i] != j) &amp;&amp; (list[i] % j == 0)) &#123;</div><div class="line">            failed = true;</div><div class="line">            &#125; else if ((j==maxDiv) &amp;&amp; (failed == false)) &#123;</div><div class="line">                primes.push(list[i]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    //搜索结果数组</div><div class="line">    return primes;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在Worker调用postMessage()将结果返回的时候，会触发网页onMessage事件，进而调用receivedWorkerMessage()函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function receivedWorkerMessage(event) &#123;</div><div class="line">    //取得素数结果数组</div><div class="line">    var message = event.data;</div><div class="line"></div><div class="line">    //把素数结果显示在页面上，省略的代码与前面看到的雷同</div><div class="line">    ......</div><div class="line"></div><div class="line">    //搜索结束，按钮启用</div><div class="line">    searchButton.disabled = false;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>总的来说，代码的结构变了，但是逻辑相差无几。可是现在即便是搜索区间变得很大，页面也能保持相应，可以进行操作，这都是Web Worker的功劳。</p>
+<h3 id="4-Web-Worker错误处理"><a href="#4-Web-Worker错误处理" class="headerlink" title="4. Web Worker错误处理"></a>4. Web Worker错误处理</h3><p>Web Worker用onerror事件告诉页面有错误发生：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">worker.onerror = workerError;</div></pre></td></tr></table></figure>
+<p>这样，如果后台脚本有问题Worker就可以把错误发送给网页：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//遇到错误，更改状态信息</div><div class="line">function workerError(error) &#123;</div><div class="line">    statusDisplay.innerHTML = error.message;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>有一个需要注意的就是，用来测试的js和html文件都需要发布到站点才可以正常访问，否则会提示这个错误：</p>
+<p><img src="/2017/11/05/Web Worker/error.png" alt="error"></p>
+<p>查找了一些资料原因大概就是谷歌浏览器安全机制导致的，不允许在本地直接运行，可以用其他浏览器测试或者部署到本地的服务器上测试。</p>
+<h3 id="5-取消后台任务"><a href="#5-取消后台任务" class="headerlink" title="5. 取消后台任务"></a>5. 取消后台任务</h3><p>停止Worker工作的方式有两种，一种是Worker对象调用自己的close()方法，更为常用的是创建Worker对象的页面调用该对象的terminate()方法。如下就是取消按钮的事件函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function cancelSearch() &#123;</div><div class="line">    //停止Worker</div><div class="line">    worker.terminate();</div><div class="line">    //更细状态消息</div><div class="line">    statusDisplay.innerHTML = &quot;&quot;;</div><div class="line">    //重新启用搜索按钮</div><div class="line">    searchButton.disabled = false;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样停止Worker之后，就不能给它发送消息了，也不能让它执行任何操作了。要执行新的搜索任务，就要重新创建新的Worker对象。</p>
+<h3 id="6-显示进度信息"><a href="#6-显示进度信息" class="headerlink" title="6. 显示进度信息"></a>6. 显示进度信息</h3><p>要显示进度，Web Worker必须在工作的同时把进度百分比发给页面。</p>
+<p>我们可以重写PrimeWorker.js的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">onmessage = function(event) &#123;</div><div class="line">    //在该范围内搜索素数</div><div class="line">    var primes = findPrimes(event.data.from, event.data.to);</div><div class="line"></div><div class="line">    //该方法里定义新的属性，用于区分返回给网页的是进度信息还是搜索结果</div><div class="line">    postMessage(&#123;</div><div class="line">        messageType: &quot;PrimeList&quot;, data: primes</div><div class="line">    &#125;);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"></div><div class="line">function findPrimes(fromNumber, toNumber) &#123;</div><div class="line"></div><div class="line">    //省略部分前面提到的代码</div><div class="line">    ......</div><div class="line"></div><div class="line">    //计算进度百分比</div><div class="line">    var progress = Math.round(i/list.length*100);</div><div class="line">    //进度发生改变时触发postMessage()方法发送信息给页面，字段信息用于区分信息类型</div><div class="line">    if (progress != previousProgress) &#123;</div><div class="line">      postMessage(</div><div class="line">       &#123;messageType: &quot;Progress&quot;, data: progress&#125;</div><div class="line">      );</div><div class="line">      previousProgress = progress;    </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return primes;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>页面在接受信息之后，想要检查信息的类型，如果过接收到的是搜索结果，则将结果显示在网页中；如果是进度信息，则更新状态消息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function receivedWorkerMessage(event) &#123;</div><div class="line">    var message = event.data;</div><div class="line"></div><div class="line">    //信息类型为搜索结果</div><div class="line">    if (message.messageType == &quot;PrimeList&quot;) &#123;</div><div class="line">        </div><div class="line">        //显示结果的操作</div><div class="line">        ......</div><div class="line"></div><div class="line">        if (primeList.length == 0) &#123;</div><div class="line">            statusDisplay.innerHTML = &quot;查找失败&quot;;</div><div class="line">        &#125;else &#123;</div><div class="line">            statusDisplay.innerHTML = &quot;结果如上&quot;;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        searchButton.disabled = false;</div><div class="line">    &#125;else if (message.messageType == &quot;Progress&quot;) &#123;</div><div class="line">        //信息类型为进度百分比，更细状态信息</div><div class="line">        statusDisplay.innerHTML = message.data + &quot;% done ......&quot;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Web Worker把任务放在后台，适合用于那些费时的任务，通过postMessage()和onMessage()方法传递数据，大大的提高效率。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="pay.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/14/mac下XAMPP简单配置/" class="archive-article-date">
-  	<time datetime="2018-10-14T14:14:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/14/mac下XAMPP简单配置/">mac下XAMPP简单配置</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/11/05/Web Worker/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/18/IndexDB/" class="archive-article-date">
-  	<time datetime="2018-08-18T12:12:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-18</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2017/12/09/Web存储/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Web存储
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/18/IndexDB/">IndexDB</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/12/ES6模块/" class="archive-article-date">
-  	<time datetime="2018-07-12T15:15:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/12/ES6模块/">ES6模块</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/06/12/Vuex学习总结/" class="archive-article-date">
-  	<time datetime="2018-06-12T15:59:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/06/12/Vuex学习总结/">Vuex学习总结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/15/React处理事件响应/" class="archive-article-date">
-  	<time datetime="2018-05-15T14:05:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/15/React处理事件响应/">React处理事件响应</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/09/callback介绍/" class="archive-article-date">
-  	<time datetime="2018-04-09T13:46:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/09/callback介绍/">回调函数介绍</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/04/移动端适配/" class="archive-article-date">
-  	<time datetime="2018-03-04T05:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/04/移动端适配/">移动端适配</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/01/12/谈谈函数参数传递/" class="archive-article-date">
-  	<time datetime="2018-01-12T14:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/12/谈谈函数参数传递/">谈谈函数参数传递</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -399,8 +377,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
