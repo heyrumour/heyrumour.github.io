@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>twilight</title>
+  <title>「译」使用Webpack的Code Splitting在Vue中进行延迟加载 | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="twilight">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="我们在Vue中可以有3种不同的层面来实现应用的延迟加载和代码分离：  组件，也称为异步组件 路由 Vuex模块  它们都有一个共同的地方：都使用从Webpack 2开始就支持的动态加载的方式。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「译」使用Webpack的Code Splitting在Vue中进行延迟加载">
+<meta property="og:url" content="http://yoursite.com/2018/11/11/「译」使用Webpack的Code Splitting在Vue中进行延迟加载/index.html">
 <meta property="og:site_name" content="twilight">
+<meta property="og:description" content="我们在Vue中可以有3种不同的层面来实现应用的延迟加载和代码分离：  组件，也称为异步组件 路由 Vuex模块  它们都有一个共同的地方：都使用从Webpack 2开始就支持的动态加载的方式。">
+<meta property="og:updated_time" content="2018-11-11T15:54:09.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="twilight">
+<meta name="twitter:title" content="「译」使用Webpack的Code Splitting在Vue中进行延迟加载">
+<meta name="twitter:description" content="我们在Vue中可以有3种不同的层面来实现应用的延迟加载和代码分离：  组件，也称为异步组件 路由 Vuex模块  它们都有一个共同的地方：都使用从Webpack 2开始就支持的动态加载的方式。">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -145,16 +149,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-「译」使用Webpack的Code Splitting在Vue中进行延迟加载" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-「译」使用Webpack的Code Splitting在Vue中进行延迟加载" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/11/「译」使用Webpack的Code Splitting在Vue中进行延迟加载/">「译」使用Webpack的Code Splitting在Vue中进行延迟加载</a>
+    <h1 class="article-title" itemprop="name">
+      「译」使用Webpack的Code Splitting在Vue中进行延迟加载
     </h1>
   
 
@@ -174,11 +176,50 @@
 <li>Vuex模块</li>
 </ul>
 <p>它们都有一个共同的地方：都使用从Webpack 2开始就支持的动态加载的方式。</p>
-        
-          <a class="article-more-a" href="/2018/11/11/「译」使用Webpack的Code Splitting在Vue中进行延迟加载/#more">more >></a>
-        
+<a id="more"></a>
+<h3 id="1-延迟加载Vue组件"><a href="#1-延迟加载Vue组件" class="headerlink" title="1. 延迟加载Vue组件"></a>1. 延迟加载Vue组件</h3><ul>
+<li>该方法在Egghead的“在需要时使用Vue异步加载组件”文章中有详细的说明。<br>就像我们新建组件时使用import来引进一个函数那么简单：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Vue.component(&quot;AsyncCmp&quot;, () =&gt; import(&quot;./AsyncCmp&quot;));</div></pre></td></tr></table></figure>
+<p>定义一个组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">new Vue(&#123;</div><div class="line">  // ...</div><div class="line">  components: &#123;</div><div class="line">    AsyncCmp: () =&gt; import(&quot;./AsyncCmp&quot;)</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>通过将import()包装到箭头函数中，Vue将仅在需要的时候才加载该组件。</p>
+<p>如果一个组件通过export导出了一个对象，那么可以在引入组件后返回的Promise上使用对象解构。例如，对于从keen-ui上获得UiAlert这个方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">components: &#123;</div><div class="line">  UiAlert: () =&gt; import(&apos;keen-ui&apos;).then((&#123; UiAlert &#125;) =&gt; UiAlert)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="2-延迟加载Vue路由"><a href="#2-延迟加载Vue路由" class="headerlink" title="2. 延迟加载Vue路由"></a>2. 延迟加载Vue路由</h3><p>Vue路由支持延迟加载。它也像使用import来引进一个函数那么简单。假设我们想在/login路由下延迟加载一个Login组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 不再使用 import Login from &apos;./login&apos;</div><div class="line">const Login = () =&gt; import(&quot;./login&quot;);</div><div class="line"></div><div class="line">new VueRouter(&#123;</div><div class="line">  routes: [&#123; path: &quot;/login&quot;, component: Login &#125;]</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="3-延迟加载Vuex模块"><a href="#3-延迟加载Vuex模块" class="headerlink" title="3.延迟加载Vuex模块"></a>3.延迟加载Vuex模块</h3><p>Vuex提供registerModule的方法让我们动态地创建Vuex模块。因为考虑到我们从ES的模块中import函数后返回的是一个Promise，我们可以使用它来延迟加载所需的模块：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">const store = new Vuex.Store()</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">// 假设我们需要加载一个vuex的登录模块</div><div class="line">import(&apos;./store/login&apos;).then(loginModule =&gt; &#123;</div><div class="line">  store.registerModule(&apos;login&apos;, loginModule)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="4-结论"><a href="#4-结论" class="headerlink" title="4. 结论"></a>4. 结论</h3><p>使用Vue和Webpack，使得延迟加载变得非常简单。使用你刚刚阅读的内容，可以从不同的方面分割你的项目代码，并且在需要时加载它们，从而加快应用的首次加载速度。</p>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="pay.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -187,16 +228,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/11/「译」使用Webpack的Code Splitting在Vue中进行延迟加载/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/11/11/「译」使用Webpack的Code Splitting在Vue中进行延迟加载/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/11/webpack代码分离/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Webpack Code Splitting实践</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -216,599 +316,14 @@
 
 
 
-
-  
-    <article id="post-webpack代码分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/11/webpack代码分离/">Webpack Code Splitting实践</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/11/webpack代码分离/" class="archive-article-date">
-  	<time datetime="2018-11-11T07:53:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p> 对于一个网站来说，网页加载的快慢是关乎用户体验的一个很重要的指标。一般在项目上线前，我们要利用打包工具对整个项目进行打包，将代码进行合理的编译，产生一份生产环境的代码。刚开始，为了减少资源的请求数量，通常我们将项目代码打包成一个js文件；但是如果这个js文件很大的话，就会导致加载的时间较长，影响体验。这时候我们就需要将代码进行分离（Code Splitting），变成很多块，在需要的时候在去加载，同时结合浏览器的缓存，可以明显的加快网页的加载速度。</p>
-        
-          <a class="article-more-a" href="/2018/11/11/webpack代码分离/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/11/webpack代码分离/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mac下XAMPP简单配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/14/mac下XAMPP简单配置/">mac下XAMPP简单配置</a>
-    </h1>
-  
-
-        
-        <a href="/2018/10/14/mac下XAMPP简单配置/" class="archive-article-date">
-  	<time datetime="2018-10-14T14:14:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h3><p>先去<a href="&quot;https://www.apachefriends.org/index.html&quot;">官网</a>下载mac版安装包，点击下载好的dmg文件，然后一路next，完成安装。</p>
-        
-          <a class="article-more-a" href="/2018/10/14/mac下XAMPP简单配置/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/10/14/mac下XAMPP简单配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-IndexDB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/18/IndexDB/">IndexDB</a>
-    </h1>
-  
-
-        
-        <a href="/2018/08/18/IndexDB/" class="archive-article-date">
-  	<time datetime="2018-08-18T12:12:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-概念"><a href="#1-概念" class="headerlink" title="1. 概念"></a>1. 概念</h3><p>说到数据库，应该大家都熟悉，可以用来存储大量数据。比如，我们在淘宝上面搜索一本书，就回从淘宝巨大的数据库中查找。一直以来，数据库相关的都是服务端的工作。IndexDB的出现，让浏览器具备了创建本地数据库的能力。</p>
-        
-          <a class="article-more-a" href="/2018/08/18/IndexDB/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/08/18/IndexDB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ES6模块" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/12/ES6模块/">ES6模块</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/12/ES6模块/" class="archive-article-date">
-  	<time datetime="2018-07-12T15:15:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h3><p>在ES6之前，模块加载的方案主要有CommonJS和AMD。前者用于服务器，后者用于浏览器。ES6在语言规格层面上实现了模块化，直接用import和export在浏览器中导入和导出各个模块，一个js文件代表一个js模块，相当简洁，可以完全取代现有的CommonJS和AMD规范。</p>
-        
-          <a class="article-more-a" href="/2018/07/12/ES6模块/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/12/ES6模块/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Vuex学习总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/12/Vuex学习总结/">Vuex学习总结</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/12/Vuex学习总结/" class="archive-article-date">
-  	<time datetime="2018-06-12T15:59:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>使用 Vue 时，当多个组件共享状态，组件之间的状态传递非常繁琐，Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式（官网）。Vuex 将组件的共享状态抽离出来，集中管理，使得组件可以直接获取状态和触发某些变化，并且 Vuex 的状态数据是响应式的，即一个组件触发了 Vuex 的状态数据改变，其他使用到该状态数据的组件也会响应式的发生变化。</p>
-        
-          <a class="article-more-a" href="/2018/06/12/Vuex学习总结/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/12/Vuex学习总结/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-React处理事件响应" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/15/React处理事件响应/">React处理事件响应</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/15/React处理事件响应/" class="archive-article-date">
-  	<time datetime="2018-05-15T14:05:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-写在前面"><a href="#1-写在前面" class="headerlink" title="1. 写在前面"></a>1. 写在前面</h3><p>处理事件响应是Web应用中非常重要的一部分。React中，处理事件响应的方式有多种。</p>
-        
-          <a class="article-more-a" href="/2018/05/15/React处理事件响应/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/15/React处理事件响应/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-callback介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/09/callback介绍/">回调函数介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/09/callback介绍/" class="archive-article-date">
-  	<time datetime="2018-04-09T13:46:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-介绍：回调"><a href="#1-介绍：回调" class="headerlink" title="1. 介绍：回调"></a>1. 介绍：回调</h3><p>JavaScript中的许多操作都是异步的。</p>
-<p>例如，看看这个函数loadScript(src)：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">function loadScript(src) &#123;</div><div class="line">  let script = document.createElement(&apos;script&apos;);</div><div class="line">  script.src = src;</div><div class="line">  document.head.append(script);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-        
-          <a class="article-more-a" href="/2018/04/09/callback介绍/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/09/callback介绍/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-移动端适配" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/04/移动端适配/">移动端适配</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/04/移动端适配/" class="archive-article-date">
-  	<time datetime="2018-03-04T05:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>在互联网快速发展的今天，手机的更新迭代速度越来越快，手机的种类和尺寸也越来越多，作为前端小伙伴们的我们需要去适配一款又一款的新机型。对于移动端适配，不同的公司、不同的团队有不同的解决方案。</p>
-        
-          <a class="article-more-a" href="/2018/03/04/移动端适配/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/04/移动端适配/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-谈谈函数参数传递" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/12/谈谈函数参数传递/">谈谈函数参数传递</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/12/谈谈函数参数传递/" class="archive-article-date">
-  	<time datetime="2018-01-12T14:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-按值传递"><a href="#1-按值传递" class="headerlink" title="1. 按值传递"></a>1. 按值传递</h3><p>ECMAScript中函数的参数都是按值传递，指的是把函数外部的值复制给函数内部的参数，相当于把值从一个变量复制到另一个变量。</p>
-        
-          <a class="article-more-a" href="/2018/01/12/谈谈函数参数传递/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/12/谈谈函数参数传递/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -831,8 +346,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
