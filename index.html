@@ -42,7 +42,7 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="" class="profilepic">
-			<img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1509801170630&amp;di=ed7514d938633ac8f19bf03edd6e1927&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.52fuqing.com%2Fupload%2FNews%2F2017-6-12%2F2017612144211423ihdcz.jpg" class="js-avatar">
+			<img src="https://heyrumour.github.io/2017/11/05/Web%20Worker/timg.jpeg" class="js-avatar">
 		</a>
 		<hgroup>
 		  <h1 class="header-author"><a href="">twilight</a></h1>
@@ -98,7 +98,7 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1509801170630&amp;di=ed7514d938633ac8f19bf03edd6e1927&amp;imgtype=0&amp;src=http%3A%2F%2Fimg.52fuqing.com%2Fupload%2FNews%2F2017-6-12%2F2017612144211423ihdcz.jpg" class="js-avatar">
+				<img src="https://heyrumour.github.io/2017/11/05/Web%20Worker/timg.jpeg" class="js-avatar">
 			</div>
 			<hgroup>
 			  <h1 class="header-author js-header-author">twilight</h1>
@@ -146,6 +146,71 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-webpack代码分离" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/11/webpack代码分离/">Webpack Code Splitting实践</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/11/webpack代码分离/" class="archive-article-date">
+  	<time datetime="2018-11-11T07:53:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p> 对于一个网站来说，网页加载的快慢是关乎用户体验的一个很重要的指标。一般在项目上线前，我们要利用打包工具对整个项目进行打包，将代码进行合理的编译，产生一份生产环境的代码。刚开始，为了减少资源的请求数量，通常我们将项目代码打包成一个js文件；但是如果这个js文件很大的话，就会导致加载的时间较长，影响体验。这时候我们就需要将代码进行分离（Code Splitting），变成很多块，在需要的时候在去加载，同时结合浏览器的缓存，可以明显的加快网页的加载速度。</p>
+        
+          <a class="article-more-a" href="/2018/11/11/webpack代码分离/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/11/webpack代码分离/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-mac下XAMPP简单配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -734,72 +799,10 @@
 
 
   
-    <article id="post-Web Worker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/Web Worker/">浅谈Web Worker</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/05/Web Worker/" class="archive-article-date">
-  	<time datetime="2017-11-05T14:43:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><p>JavaScript刚问世的时候，没有人担心它的性能，它只是一种简单的语言，可以在网页运行小段的脚本。而现在，JavaScript已经成为web开发领域的王者，只要想给网页添加交互性，开发人员就会用到它。然而，JavaScript与它现在的地位相比，仍然有一些不相称的地方。</p>
-<p>比如，JavaScript处理大计算量任务时会始终在前台运行，因而耗费时间的代码会打断用户，阻塞页面，直到任务完成，导致用户体验很不好。</p>
-        
-          <a class="article-more-a" href="/2017/11/05/Web Worker/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/Web Worker/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 
 

@@ -6,24 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>移动端适配 | twilight</title>
+  <title>twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. 前言在互联网快速发展的今天，手机的更新迭代速度越来越快，手机的种类和尺寸也越来越多，作为前端小伙伴们的我们需要去适配一款又一款的新机型。对于移动端适配，不同的公司、不同的团队有不同的解决方案。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="移动端适配">
-<meta property="og:url" content="http://yoursite.com/2018/03/04/移动端适配/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="twilight">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="twilight">
-<meta property="og:description" content="1. 前言在互联网快速发展的今天，手机的更新迭代速度越来越快，手机的种类和尺寸也越来越多，作为前端小伙伴们的我们需要去适配一款又一款的新机型。对于移动端适配，不同的公司、不同的团队有不同的解决方案。">
-<meta property="og:image" content="http://yoursite.com/2018/03/04/移动端适配/dpr.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/04/移动端适配/viewport.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/03/04/移动端适配/layout.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/03/04/移动端适配/visual.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/03/04/移动端适配/ppi.png">
-<meta property="og:updated_time" content="2018-03-05T15:23:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="移动端适配">
-<meta name="twitter:description" content="1. 前言在互联网快速发展的今天，手机的更新迭代速度越来越快，手机的种类和尺寸也越来越多，作为前端小伙伴们的我们需要去适配一款又一款的新机型。对于移动端适配，不同的公司、不同的团队有不同的解决方案。">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/04/移动端适配/dpr.png">
+<meta name="twitter:title" content="twilight">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -155,212 +145,35 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-移动端适配" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-Web Worker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      移动端适配
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/05/Web Worker/">浅谈Web Worker</a>
     </h1>
   
 
         
-        <a href="/2018/03/04/移动端适配/" class="archive-article-date">
-  	<time datetime="2018-03-04T05:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-04</time>
+        <a href="/2017/11/05/Web Worker/" class="archive-article-date">
+  	<time datetime="2017-11-05T14:43:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h3><p>在互联网快速发展的今天，手机的更新迭代速度越来越快，手机的种类和尺寸也越来越多，作为前端小伙伴们的我们需要去适配一款又一款的新机型。对于移动端适配，不同的公司、不同的团队有不同的解决方案。</p>
-<a id="more"></a>
-<h3 id="2-1-viewport-的由来"><a href="#2-1-viewport-的由来" class="headerlink" title="2.1 viewport 的由来"></a>2.1 viewport 的由来</h3><p>开始之前，先说说iPhone。从iPhone 1代到iPhone 3GS，分辨率是320x480像素，这种设计在当时看起来很完美。</p>
-<p>直到2010年的某一天（中考那年），iPhone 4发布了，分辨率为640x960像素，并且屏幕尺寸没有变大，一个像素变成了4个像素，所以同样大小的手机屏幕，像素更多了，像素密度更大了，单个像素更小了。苹果提出了新理念：视网膜屏。当屏幕像素密度超过300ppi时，人眼就无法区分出单独的像素。因此像素密度达到326ppi的iPhone 4具备非常优秀的显示功能，不会再出现颗粒感。</p>
-<p>那么问题就来了，原本iPhone1只能看320像素宽的网页，超出320宽就得左右拖动着看。现在iPhone4可以看640像素宽的网页了，虽然是好事，但是640宽的页面挤在手机屏幕上看，字很小，完全看不清。</p>
-<p>这时候苹果就给出了一个解决方案，就是著名的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p>也就是视口（viewport）的概念，苹果的想法是，你们程序猿们做网页就仍然按照320像素的宽度做，但是要加上这行代码，这时候iPhone 4给你们渲染页面的时候，按照四个像素顶一个像素的原则显示，就没问题了。但是如果你不听我的话，不加这样代码，就还是按照640像素的宽度显示。<br>这样做之后，屏幕显示字体的时候，老机型的大像素只能显示某种单色，而现在大像素切成了四个小像素，这四个像素可以显示4种不同单色，于是削弱了锯齿感，字体也就更清晰了，苹果的目的就达到了。</p>
-<h3 id="2-2-一些概念"><a href="#2-2-一些概念" class="headerlink" title="2.2 一些概念"></a>2.2 一些概念</h3><ul>
-<li>CSS 像素（CSS pixels）</li>
-</ul>
-<p>指的是CSS样式代码中使用的逻辑像素。</p>
-<ul>
-<li>设备像素（device pixels）</li>
-</ul>
-<p>显示屏幕的最小物理单位，又称为物理像素，每个像素包含自己的颜色、高宽等，不可再细分。这种像素是真实的物理存在的，不可变的，设备一旦造出来就不会变大小和数量。例如手机屏幕说的分辨率1920x1080就是物理像素。</p>
-<ul>
-<li>设备独立像素(device-independent pixels (dips))</li>
-</ul>
-<p>要知道浏览器并不是根据物理硬件的像素来工作的，而是根据 dips 宽度来工作。<br>还要知道 dips 是将像素值与实际距离联系起来的，不管屏幕的像素密度是多少，dips 为 1px，那么实际宽度就是 1px，也就是对应 CSS 中的 1px，而不是对应物理像素 1px。</p>
-<ul>
-<li>设备像素比（DPR）</li>
-</ul>
-<p>我们知道在 Chrome 浏览器控制台 console 中输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.devicePixelRatio</div></pre></td></tr></table></figure></p>
-<p>可以获取当前屏幕的 DPR。</p>
-<p>那么什么是 DPR (Device Pixel Ratio)？window.devicePixelRatio 是设备上物理像素 (physical pixels) 和设备独立像素 (device-independent pixels (dips)) 的比例。公式表示就是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">window.devicePixelRatio = physical pixels / dips</div></pre></td></tr></table></figure></p>
-<p>举个栗子，iPhone 6 显示屏分辨率是 1334x750，这个 1334 就是我们前面说的设备上的物理像素值，而显示的高度只有 667，这个就是 dips 值，最终可以知道这台 iPhone 6 屏幕的 DPR 为 2，DPR 在这里所表达的意思就是：667 dips 在实际显示的时候，被硬件扩展到了 1334 的硬件像素宽度，2 个物理像素对应 1 个 CSS 像素（这个指的水平方向或垂直方向，如果在一个平面内的话 4 个物理像素点对应 1 个 CSS 像素点）。</p>
-<p><img src="/2018/03/04/移动端适配/dpr.png" alt="find"></p>
-<ul>
-<li>设备宽度（device-width）</li>
-</ul>
-<p>设备宽度是手机厂商给具体机型内定的一个值，从初代iPhone到5代，它的值都是320px。6代是375px，6plus是414px。这个值可以理解为标准分辨率或者推荐分辨率，就是说你的页面只要按照这个分辨率制作，厂商保证你得到完美效果。</p>
-<ul>
-<li>视口（viewport）</li>
-</ul>
-<p><img src="/2018/03/04/移动端适配/viewport.jpg" alt="find"></p>
-<p>（1）布局视口（layout viewport）：</p>
-<p>当没有设定那行著名代码的时候，厂商除了规定标准分辨率，还要给自己的手机设一个最大分辨率。想象一下，假如没有那行代码、也没有layout viewport，这时候你让手机打开一个5000像素宽的页面，那么手机会把5000宽度的页面全部挤到屏幕上，届时，每一个字将成为一个像素点，完全不可看。为了防止这种现象的出现，厂商规定了layout viewport，它的宽度可以通过document.documentElement.clientWidth来获取，通常都是980px。主要意义是在打开大于980宽度的页面的时候可以横向拖动，而不至于挤成一团。</p>
-<p>注意：布局视口的宽高值是在页面没添加viewport 时所获得的值。如果你给页面添加了viewport 并且设置了width = device-width 时，通过上面的代码所获得的值就不是布局视口的默认值了。</p>
-<p><img src="/2018/03/04/移动端适配/layout.jpg" alt="find"></p>
-<p>（2）视觉视口（visual viewport）：</p>
-<p>视觉视口就是设备的屏幕区域，也就是用户通过屏幕所看到的页面内容,其宽度继承的布局视口宽度。但它所对应的并不是指屏幕区域里的物理像素，而是CSS 像素。对于iPhone 6 Plus来说，在加了著名代码前提下，值是414px，不加的话，值是980px，如果改一改width=device-width, initial-scale=1.5，这时值是276px。所以它是一个可变的值。</p>
-<p><img src="/2018/03/04/移动端适配/visual.jpg" alt="find"></p>
-<p>（3）理想视口（ideal viewport）：</p>
-<p>是当width=device-width, initial-scale=1.0的时候，视觉视口的大小。对于iPhone 6 Plus来说，是固定值414px。理想视口就等于设备宽度。</p>
-<ul>
-<li>像素密度（PPI）</li>
-</ul>
-<p>表示每英寸所拥有的像素数量。</p>
-<p><img src="/2018/03/04/移动端适配/ppi.png" alt="find"></p>
-<p>同样大小的字体在不同设备为什么看起来大小不一样，本质上就是问一个 dips 像素在不同设备中分别等价于多少英寸。假设 viewport 缩放比例都为 1（即 ideal viewport），那么一个 dips 像素（此时对应一个 CSS 像素）对应的物理像素就是 DPR 个，那么一个 dips 像素的长度就可以由 DPR * (1/PPI) = DPR/PPI 计算出来。</p>
-<p>例子：iphone8 PPI 为 326，DPR 为 2，DPR/PPI 约等于 0.00613497，而 iphone8 plus PPI 为401，DPR 为 3，DPR/PPI 约等于 0.0074813；所以 iphone8 plus 上的 app 图标和字比 iphone8 要大。</p>
-<h3 id="3-rem，vh、vw"><a href="#3-rem，vh、vw" class="headerlink" title="3. rem，vh、vw ?"></a>3. rem，vh、vw ?</h3><h5 id="3-1-rem布局"><a href="#3-1-rem布局" class="headerlink" title="3.1 rem布局"></a>3.1 rem布局</h5><p>rem作用于非根元素时，表示相对于根元素字体大小；rem作用于根元素字体大小时，表示相对于其出初始字体大小。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/* 作用于根元素，相对于原始大小（假设为16px），所以html的font-size为32px*/</div><div class="line">html &#123;font-size: 2rem&#125;</div><div class="line"></div><div class="line">/* 作用于非根元素，相对于根元素字体大小，所以为64px */</div><div class="line">p &#123;font-size: 2rem&#125;</div></pre></td></tr></table></figure>
-<p>所以rem布局的本质是等比缩放，一般是基于宽度。</p>
-<p>假设我们将屏幕宽度平均分成100份，每一份的宽度用x表示，x = 屏幕宽度 / 100，如果将x作为单位，x前面的数值就代表屏幕宽度的百分比</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">p &#123;width: 50x&#125;     /* 屏幕宽度的50% */</div></pre></td></tr></table></figure>
-<p>如果想要页面元素随着屏幕宽度等比变化，我们需要上面的x单位(也就是后面会讲到的vw)，通过rem这个桥梁，可以模拟上面的x单位</p>
-<p>可以发现，如果子元素设置rem单位的属性，通过更改html元素的字体大小，就可以让子元素实际大小发生变化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">html &#123;font-size: 16px&#125;</div><div class="line">p &#123;width: 2rem&#125;     /* 32px*/</div><div class="line"></div><div class="line">html &#123;font-size: 32px&#125;</div><div class="line">p &#123;width: 2rem&#125;     /*64px*/</div></pre></td></tr></table></figure>
-<p>如果让html元素字体的大小，恒等于屏幕宽度的1/100，那1rem和1x就等价了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">html &#123;fons-size: 屏幕宽度 / 100&#125;</div><div class="line">p &#123;width: 50rem&#125;     /* 50rem = 50x = 屏幕宽度的50% */</div></pre></td></tr></table></figure>
-<p>可以通过下面的js来设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.documentElement.style.fontSize = document.documentElement.clientWidth / 100 + &apos;px&apos;;</div></pre></td></tr></table></figure>
-<p>那么如何把设计稿中的获取的像素单位的值，转换为以rem为单位的值呢？</p>
-<h4 id="公式：元素宽度-设计稿宽度-100"><a href="#公式：元素宽度-设计稿宽度-100" class="headerlink" title="公式：元素宽度 / 设计稿宽度 * 100"></a>公式：元素宽度 / 设计稿宽度 * 100</h4><p>举个例子，假设设计稿尺寸是640px，设计稿中的一个元素宽度是100px，根据公式100/640*100 = 15.625rem。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">p &#123;width: 15.625rem&#125;</div></pre></td></tr></table></figure></p>
-<p>下面来验证下上面的计算是否正确，下面的表格是设计稿等比缩放下，元素的宽度</p>
-<table>
-<thead>
-<tr>
-<th>设计稿宽度</th>
-<th style="text-align:right">元素宽度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>640px</td>
-<td style="text-align:right">100px</td>
-</tr>
-<tr>
-<td>480px</td>
-<td style="text-align:right">75px</td>
-</tr>
-<tr>
-<td>320ox</td>
-<td style="text-align:right">50px</td>
-</tr>
-</tbody>
-</table>
-<p>下面的表格是通过我们的元素在不同屏幕宽度下的计算值</p>
-<table>
-<thead>
-<tr>
-<th>页面宽度</th>
-<th style="text-align:right">html字体大小</th>
-<th style="text-align:center">p元素宽度</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>640px</td>
-<td style="text-align:right">640/100 = 6.4px</td>
-<td style="text-align:center">15.625*6.4=100px</td>
-</tr>
-<tr>
-<td>480px</td>
-<td style="text-align:right">480/100=4.8px</td>
-<td style="text-align:center">15.625*4.8=75px</td>
-</tr>
-<tr>
-<td>320px</td>
-<td style="text-align:right">320/100=3.2px</td>
-<td style="text-align:center">15.625*3.2=50px</td>
-</tr>
-</tbody>
-</table>
-<p>可以发现，两边得出的元素宽度是一致的</p>
-<p>上面的计算过程有些繁琐，开发的时候可以通过less预处理或者postcss插件来简化过程</p>
-<h5 id="3-2-vw-vh布局"><a href="#3-2-vw-vh布局" class="headerlink" title="3.2 vw,vh布局"></a>3.2 vw,vh布局</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vw —— 视口宽度的 1/100；vh —— 视口高度的 1/100</div></pre></td></tr></table></figure>
-<p>聪明的你也许已经发现，这就是上面说到的单位x吗，根据定义可以发现1vw=1x，有了vw我们完全可以绕过rem这个中介了，下面两种方案是等价的，可以看到vw比rem更简单，毕竟rem是为了实现vw</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">/* rem方案 */</div><div class="line">html &#123;fons-size: 屏幕宽度 / 100&#125;</div><div class="line">p &#123;width: 15.625rem&#125;</div><div class="line"></div><div class="line">/* vw方案 */</div><div class="line">p &#123;width: 15.625vw&#125;</div><div class="line"></div><div class="line">/* vw还可以和rem方案结合，这样计算html字体大小就不需要用js了 */</div><div class="line">html &#123;fons-size: 1vw&#125; /* 1vw = width / 100 */</div><div class="line">p &#123;width: 15.625rem&#125;</div></pre></td></tr></table></figure>
-<p>虽然vw优点很明显，但是vw也有缺点，首先vw的兼容性不如rem好。</p>
-<table>
-<thead>
-<tr>
-<th>兼容性</th>
-<th style="text-align:right">IOS</th>
-<th style="text-align:center">安卓</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>rem</td>
-<td style="text-align:right">4.1+</td>
-<td style="text-align:center">2.1+</td>
-</tr>
-<tr>
-<td>vw</td>
-<td style="text-align:right">6.1+</td>
-<td style="text-align:center">4.4+</td>
-</tr>
-</tbody>
-</table>
-<h3 id="4-lib-flexible-实现"><a href="#4-lib-flexible-实现" class="headerlink" title="4. lib-flexible 实现"></a>4. lib-flexible 实现</h3><p>lib-flexible布局的前提就是viewport的scale根据devicePixelRatio动态设置：</p>
-<ul>
-<li><p>在devicePixelRatio为2的时候，scale为0.5</p>
-</li>
-<li><p>在devicePixelRatio为3的时候，scale为0.3333</p>
-</li>
-</ul>
-<p>这么做目的当然是为了保证页面的大小与设计稿保持一致了，比如设计稿如果是750的横向分辨率，那么实际页面的device-width，以iphone6来说，也等于750，这样的话设计稿上标注的尺寸只要除以某一个值就能够转换为rem了。通过js设置viewport的方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var scale = 1 / devicePixelRatio;</div><div class="line">document.querySelector(&apos;meta[name=&quot;viewport&quot;]&apos;).setAttribute(&apos;content&apos;,&apos;initial-scale=&apos; + scale + &apos;, maximum-scale=&apos; + scale + &apos;, minimum-scale=&apos; + scale + &apos;, user-scalable=no&apos;);</div></pre></td></tr></table></figure>
-<p>第二个要点，就是html元素的font-size的计算公式，font-size = deviceWidth / 10。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">document.documentElement.style.fontSize = document.documentElement.clientWidth / 10 + &apos;px&apos;;</div></pre></td></tr></table></figure>
-<p>接下来是，元素的尺寸该如何计算，比如说设计稿上某一个元素的宽为150px，换算成rem应该怎么算呢？这个值等于</p>
-<h5 id="设计稿标注尺寸-该设计稿对应的html的font-size。"><a href="#设计稿标注尺寸-该设计稿对应的html的font-size。" class="headerlink" title="设计稿标注尺寸/该设计稿对应的html的font-size。"></a>设计稿标注尺寸/该设计稿对应的html的font-size。</h5><p>拿淘宝触屏版来说的，他们用的设计稿是750的，所以html的font-size就是75，如果某个元素时150px的宽，换算成rem就是150 / 75 = 2rem。</p>
-<h3 id="5-最后的最后"><a href="#5-最后的最后" class="headerlink" title="5. 最后的最后"></a>5. 最后的最后</h3><p>看一下在线的适配</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">(function() &#123;</div><div class="line"></div><div class="line">    var fontSizeMatchDeviceWidth = function() &#123;</div><div class="line">        var deviceWidth = document.documentElement.clientWidth,</div><div class="line">            devicePixelRatio = window.devicePixelRatio || 1,</div><div class="line">            fontSize = ( ( deviceWidth * 16 / 320 ) /** devicePixelRatio */),</div><div class="line">            scale = 1;    //    1 / devicePixelRatio</div><div class="line"></div><div class="line">        document.documentElement.style.fontSize = fontSize + &apos;px&apos;;</div><div class="line">        document.querySelector(&apos;meta[name=&quot;viewport&quot;]&apos;).setAttribute(</div><div class="line">            &apos;content&apos;,</div><div class="line">            &apos;width=device-width,initial-scale=&apos; + scale + &apos;, maximum-scale=&apos; + scale + &apos;, minimum-scale=&apos; + scale + &apos;, user-scalable=no, viewport-fit=cover&apos;  //  增加viewport-fit=cover适配iPhone X</div><div class="line">        );</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    (function() &#123;</div><div class="line">        var ua = navigator.userAgent;</div><div class="line">        if( /android/i.test(ua) || /ipad|itouch|iphone/i.test(ua) || /tianqi/i.test(ua) ) &#123;</div><div class="line">            fontSizeMatchDeviceWidth();</div><div class="line">        &#125; else &#123;    //在pc上优雅显示</div><div class="line">            document.documentElement.style.fontSize = &apos;24px&apos;;</div><div class="line">            document.getElementById(&apos;container&apos;).style.maxWidth = &apos;30rem&apos;;</div><div class="line">            document.getElementById(&apos;container&apos;).style.minWidth = &apos;22rem&apos;;</div><div class="line">        &#125;</div><div class="line">    &#125;)();</div><div class="line"></div><div class="line">&#125;)();</div></pre></td></tr></table></figure>
-
+        <h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><p>JavaScript刚问世的时候，没有人担心它的性能，它只是一种简单的语言，可以在网页运行小段的脚本。而现在，JavaScript已经成为web开发领域的王者，只要想给网页添加交互性，开发人员就会用到它。然而，JavaScript与它现在的地位相比，仍然有一些不相称的地方。</p>
+<p>比如，JavaScript处理大计算量任务时会始终在前台运行，因而耗费时间的代码会打断用户，阻塞页面，直到任务完成，导致用户体验很不好。</p>
+        
+          <a class="article-more-a" href="/2017/11/05/Web Worker/#more">more >></a>
+        
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="pay.JPG">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -369,84 +182,16 @@
       
 
       
-
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/05/Web Worker/">展开全文 >></a>
+        </p>
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/03/04/移动端适配/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/04/09/callback介绍/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          回调函数介绍
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/01/12/谈谈函数参数传递/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">谈谈函数参数传递</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -466,14 +211,12 @@
 
 
 
-  
-  
-  
 
   
-
   
-
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -496,8 +239,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
