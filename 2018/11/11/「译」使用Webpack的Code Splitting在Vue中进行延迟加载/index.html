@@ -14,7 +14,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/11/11/「译」使用Webpack的Code Splitting在Vue中进行延迟加载/index.html">
 <meta property="og:site_name" content="twilight">
 <meta property="og:description" content="我们在Vue中可以有3种不同的层面来实现应用的延迟加载和代码分离：  组件，也称为异步组件 路由 Vuex模块  它们都有一个共同的地方：都使用从Webpack 2开始就支持的动态加载的方式。">
-<meta property="og:updated_time" content="2018-11-11T15:54:09.000Z">
+<meta property="og:updated_time" content="2018-11-11T15:56:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="「译」使用Webpack的Code Splitting在Vue中进行延迟加载">
 <meta name="twitter:description" content="我们在Vue中可以有3种不同的层面来实现应用的延迟加载和代码分离：  组件，也称为异步组件 路由 Vuex模块  它们都有一个共同的地方：都使用从Webpack 2开始就支持的动态加载的方式。">
@@ -191,6 +191,8 @@
 <h3 id="3-延迟加载Vuex模块"><a href="#3-延迟加载Vuex模块" class="headerlink" title="3.延迟加载Vuex模块"></a>3.延迟加载Vuex模块</h3><p>Vuex提供registerModule的方法让我们动态地创建Vuex模块。因为考虑到我们从ES的模块中import函数后返回的是一个Promise，我们可以使用它来延迟加载所需的模块：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">const store = new Vuex.Store()</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">// 假设我们需要加载一个vuex的登录模块</div><div class="line">import(&apos;./store/login&apos;).then(loginModule =&gt; &#123;</div><div class="line">  store.registerModule(&apos;login&apos;, loginModule)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <h3 id="4-结论"><a href="#4-结论" class="headerlink" title="4. 结论"></a>4. 结论</h3><p>使用Vue和Webpack，使得延迟加载变得非常简单。使用你刚刚阅读的内容，可以从不同的方面分割你的项目代码，并且在需要时加载它们，从而加快应用的首次加载速度。</p>
+<p>原文链接：<a href="https://alexjover.com/blog/lazy-load-in-vue-using-webpack-s-code-splitting/" target="_blank" rel="external">Lazy Loading in Vue using Webpack’s Code Splitting
+</a></p>
 
       
 
