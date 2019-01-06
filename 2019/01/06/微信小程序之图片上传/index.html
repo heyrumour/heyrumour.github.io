@@ -6,14 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | twilight</title>
+  <title>微信小程序之图片上传 | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="twilight">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="最近一直在写小程序，需求上有好些地方用到了图片上传。项目是用了wepy这个小程序框架，跟Vue非常类似，很自然的将这块写成一个公共组件。主要涉及图片选择，实时显示上传的进度，上传到服务器，上传成功后的预览以及从服务器删除图片。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序之图片上传">
+<meta property="og:url" content="http://yoursite.com/2019/01/06/微信小程序之图片上传/index.html">
 <meta property="og:site_name" content="twilight">
+<meta property="og:description" content="最近一直在写小程序，需求上有好些地方用到了图片上传。项目是用了wepy这个小程序框架，跟Vue非常类似，很自然的将这块写成一个公共组件。主要涉及图片选择，实时显示上传的进度，上传到服务器，上传成功后的预览以及从服务器删除图片。">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/微信小程序之图片上传/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/微信小程序之图片上传/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/06/微信小程序之图片上传/3.png">
+<meta property="og:updated_time" content="2019-01-06T16:11:57.746Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="twilight">
+<meta name="twitter:title" content="微信小程序之图片上传">
+<meta name="twitter:description" content="最近一直在写小程序，需求上有好些地方用到了图片上传。项目是用了wepy这个小程序框架，跟Vue非常类似，很自然的将这块写成一个公共组件。主要涉及图片选择，实时显示上传的进度，上传到服务器，上传成功后的预览以及从服务器删除图片。">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/06/微信小程序之图片上传/1.png">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -145,143 +153,193 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-微信小程序之图片上传" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/04/移动端适配/" class="archive-article-date">
-  	<time datetime="2018-03-04T05:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-04</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/04/移动端适配/">移动端适配</a>
+    <h1 class="article-title" itemprop="name">
+      微信小程序之图片上传
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/01/12/谈谈函数参数传递/" class="archive-article-date">
-  	<time datetime="2018-01-12T14:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-12</time>
+        
+        <a href="/2019/01/06/微信小程序之图片上传/" class="archive-article-date">
+  	<time datetime="2019-01-06T14:54:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-06</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/12/谈谈函数参数传递/">谈谈函数参数传递</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近一直在写小程序，需求上有好些地方用到了图片上传。项目是用了wepy这个小程序框架，跟Vue非常类似，很自然的将这块写成一个公共组件。主要涉及图片选择，实时显示上传的进度，上传到服务器，上传成功后的预览以及从服务器删除图片。</p>
+<a id="more"></a>
+<h4 id="业务需求"><a href="#业务需求" class="headerlink" title="业务需求"></a>业务需求</h4><p><img src="/2019/01/06/微信小程序之图片上传/1.png" alt="find"></p>
+<p>需要很明了的显示3个大框框，直接在data中定义了3组数据</p>
+<h4 id="data"><a href="#data" class="headerlink" title="data"></a>data</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">// 上传图片列表</div><div class="line">uploadList: [</div><div class="line">    &#123;</div><div class="line">        src: &apos;&apos;,  // 预览图片用的src</div><div class="line">        isShowDelete: false,  // 是否显示删除图片按钮</div><div class="line">        beginUpload: false,  // 是否开始上传图片</div><div class="line">        sucUpload: false,  // 是否上传成功</div><div class="line">        progress: 0,  // 上传进度</div><div class="line">        imageId: &apos;&apos;,  // 上传成功后，后续提交的图片ID</div><div class="line">        resId: &apos;&apos;,  // 删除图片用的ID</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        src: &apos;&apos;,</div><div class="line">        isShowDelete: false,</div><div class="line">        beginUpload: false,</div><div class="line">        sucUpload: false,</div><div class="line">        progress: 0,</div><div class="line">        imageId: &apos;&apos;,  </div><div class="line">        resId: &apos;&apos;,  </div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        src: &apos;&apos;,</div><div class="line">        isShowDelete: false,</div><div class="line">        beginUpload: false,</div><div class="line">        sucUpload: false,</div><div class="line">        progress: 0,</div><div class="line">        imageId: &apos;&apos;,  </div><div class="line">        resId: &apos;&apos;,  </div><div class="line">    &#125;,</div><div class="line">],</div></pre></td></tr></table></figure>
+<h4 id="html"><a href="#html" class="headerlink" title="html"></a>html</h4><p>将数据遍历在每个item上面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;repeat for=&quot;&#123;&#123;uploadList&#125;&#125;&quot; key=&quot;index&quot; index=&quot;index&quot; item=&quot;item&quot;&gt;</div><div class="line">    &lt;view class=&quot;photo-item&quot; @tap=&quot;chooseImage(&#123;&#123; index &#125;&#125;)&quot;&gt;</div><div class="line">        &lt;view class=&quot;delete-icon&quot; wx:if=&quot;&#123;&#123; item.isShowDelete &#125;&#125;&quot; @tap.stop=&quot;deleteImage(&#123;&#123; index &#125;&#125;)&quot;&gt;&lt;/view&gt;</div><div class="line">        &lt;text class=&quot;add-text&quot;&gt;添加照片&lt;/text&gt;</div><div class="line">        &lt;view class=&quot;photo-box&quot;&gt;</div><div class="line">            &lt;image class=&quot;photo-content&quot; wx:if=&quot;&#123;&#123; item.src &#125;&#125;&quot; @tap.stop=&quot;handleImagePreview(&#123;&#123; index &#125;&#125;)&quot; src=&quot;&#123;&#123; item.src &#125;&#125;&quot; mode=&quot;widthFix&quot; lazy-load=&quot;false&quot;&gt;&lt;/image&gt;</div><div class="line">        &lt;/view&gt;</div><div class="line">        &lt;view class=&quot;progress-box&quot; wx:if=&quot;&#123;&#123;item.beginUpload&#125;&#125;&quot; @tap.stop=&quot;handleImagePreview(&#123;&#123; index &#125;&#125;)&quot;&gt; </div><div class="line">            &lt;view wx:if=&quot;&#123;&#123; item.sucUpload &#125;&#125;&quot; class=&quot;commom-status upload-suc&quot;&gt;&lt;/view&gt;</div><div class="line">            &lt;view  wx:else class=&quot;progress-box commom-status&quot;&gt;</div><div class="line">                &lt;text class=&quot;percent&quot; style=&quot;width: &#123;&#123; item.progress + &apos;%&apos;&#125;&#125;&quot;&gt;&lt;/text&gt;</div><div class="line">            &lt;/view&gt;</div><div class="line">        &lt;/view&gt;</div><div class="line">    &lt;/view&gt;</div><div class="line">&lt;/repeat&gt;</div></pre></td></tr></table></figure>
+<h4 id="script"><a href="#script" class="headerlink" title="script"></a>script</h4><ul>
+<li>图片选择</li>
+</ul>
+<p>使用wx.chooseImage API从本地相册选择图片或使用相机拍照，限制其大小为5M。success回调里的tempFilePath可以用于后续图片上传和预览。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">chooseImage(index) &#123;</div><div class="line">    let _this = this,</div><div class="line">        maxSize = 5*1024*1024;  // 限制图片大小为5M</div><div class="line">    wx.chooseImage(&#123;</div><div class="line">        sizeType: [&apos;original&apos;],  //可选择原图或压缩后的图片</div><div class="line">        sourceType: [&apos;album&apos;, &apos;camera&apos;], //可选择性开放访问相册、相机</div><div class="line">        success: res =&gt; &#123;</div><div class="line">            if(res.tempFiles[0].size &gt; maxSize) &#123;</div><div class="line">                wepy.showToast(&#123;</div><div class="line">                    title: &apos;图片大小不能超过5M，请压缩后上传&apos;,</div><div class="line">                    icon: &apos;none&apos;,</div><div class="line">                &#125;);</div><div class="line">                return;</div><div class="line">            &#125;</div><div class="line">        &#125;    </div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<ul>
+<li>图片上传及进度实时显示</li>
+</ul>
+<p><img src="/2019/01/06/微信小程序之图片上传/2.png" alt="find"></p>
+<p>使用wx.uploadFile API将图片上传到服务端，通过onProgressUpdate监听图片上传进度变化，改变进度条的宽度。在上述wx.chooseImage的success里继续：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">const uploadTask = wx.uploadFile(&#123;</div><div class="line">    url: &apos;服务器地址&apos;, </div><div class="line">    filePath: res.tempFilePaths[0],  // 要上传文件资源的路径</div><div class="line">    name: &apos;Filedata&apos;,</div><div class="line">    header: &#123;</div><div class="line">        &quot;Content-Type&quot;: &quot;multipart/form-data&quot;,</div><div class="line">    &#125;,</div><div class="line">    success(response) &#123;  // 图片上传成功</div><div class="line">        _this.uploadList[index].sucUpload = true;</div><div class="line">        _this.uploadList[index].isShowDelete = true;</div><div class="line">        _this.uploadList[index].src = res.tempFilePaths[0];</div><div class="line">        _this.$apply();</div><div class="line">        let data = JSON.parse(response.data);</div><div class="line">        _this.uploadList[index].imageId = data.data.image_id;</div><div class="line">        _this.uploadList[index].resId = data.data.res_id;</div><div class="line">        _this.dealImage();  // 上传成功后的操作</div><div class="line">    &#125;,</div><div class="line">    fail(res) &#123;  // 图片上传失败</div><div class="line">        _this.uploadList[index].beginUpload = false;</div><div class="line">        _this.uploadList[index].sucUpload = false;</div><div class="line">        wepy.showToast(&#123;</div><div class="line">            title: &apos;图片上传失败，请重新上传&apos;,</div><div class="line">            icon: &apos;none&apos;,</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">// 监听上传进度变化</div><div class="line">uploadTask.onProgressUpdate((res) =&gt; &#123;</div><div class="line">    _this.uploadList[index].beginUpload = true;</div><div class="line">    _this.uploadList[index].progress = res.progress;  // 进度变化</div><div class="line">    _this.$apply();</div><div class="line">    // console.log(&apos;上传进度&apos;, res.progress)</div><div class="line">    // console.log(&apos;已经上传的数据长度&apos;, res.totalBytesSent)</div><div class="line">    // console.log(&apos;预期需要上传的数据总长度&apos;, res.totalBytesExpectedToSend)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ul>
+<li>图片预览</li>
+</ul>
+<p>图片上传成功后得到带有src的image</p>
+<p><img src="/2019/01/06/微信小程序之图片上传/3.png" alt="find"></p>
+<p>我们通过wx.previewImage API进行图片的预览</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">handleImagePreview(index) &#123;</div><div class="line">    let urls = [];</div><div class="line">    this.uploadList.forEach(element =&gt; &#123;</div><div class="line">        if(element.src) &#123;</div><div class="line">            urls.push(element.src);</div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">    if(urls.length &gt; 0) &#123;</div><div class="line">        wx.previewImage(&#123;</div><div class="line">            current: this.uploadList[index].src,  // 当前显示图片的http链接</div><div class="line">            urls: urls,  // 需要预览的图片http链接列表</div><div class="line">        &#125;) </div><div class="line">    &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<ul>
+<li>图片删除</li>
+</ul>
+<p>通过服务端约定的接口，将相应的ID传到服务端删除图片。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">async deleteImage(index) &#123;</div><div class="line">    let data = &#123;</div><div class="line">        res_id: this.uploadList[index].resId,</div><div class="line">    &#125;;</div><div class="line">    await api.delPhoto(data);</div><div class="line">    let resetData = &#123;</div><div class="line">        src: &apos;&apos;,</div><div class="line">        isShowDelete: false,</div><div class="line">        beginUpload: false,</div><div class="line">        sucUpload: false,</div><div class="line">        progress: 0,</div><div class="line">        imageId: &apos;&apos;,  // 提问用的ID</div><div class="line">        resId: &apos;&apos;,  // 删除图片用的ID</div><div class="line">    &#125;;</div><div class="line">    this.uploadList[index] = resetData;</div><div class="line">    this.$apply();</div><div class="line">    this.dealImage();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="与父组件通信"><a href="#与父组件通信" class="headerlink" title="与父组件通信"></a>与父组件通信</h4><p>在图片上传成功和删除成功时需要将图片的列表信息发送给父组件，在wepy中通过$emit可以轻松实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">this.$emit(&apos;transferImage&apos;, imageMessage);</div></pre></td></tr></table></figure>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>至此，一个微信小程序的图片上传相关功能完成。相比其他非小程序生态的图片上传功能，可以说小程序的实现起来相对简单，都有相应的API调用，兼容性也非常友好。</p>
+<p>如有错误，还望指正。</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="pay.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2019/01/06/微信小程序之图片上传/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/Web存储/" class="archive-article-date">
-  	<time datetime="2017-12-09T14:51:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/Web存储/">Web存储</a>
-    </h1>
+  
+    <a href="/2019/01/06/wepy使用总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">wepy使用总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/Web Worker/" class="archive-article-date">
-  	<time datetime="2017-11-05T14:43:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/Web Worker/">浅谈Web Worker</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
   
 
 
@@ -305,8 +363,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
