@@ -8,13 +8,16 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>wepy使用总结 | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="之前做的一个小程序，用到了 wepy 小程序开发框架，小程序上线也有一段时间了，在此对使用 wepy 作一个小小的总结。 1. 支持组件化的 wepy wepy官网 对 wepy 的描述是让小程序支持组件化开发的框架。原生小程序组件化支持能力太弱，wepy 借鉴了 Vue 的语法风格，提供了类似用 Vue 开发微信小程序的体验。">
+<meta property="og:type" content="article">
 <meta property="og:title" content="wepy使用总结">
-<meta property="og:url" content="http://yoursite.com/2019/01/06/wepy使用总结/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/02/03/wepy使用总结/index.html">
 <meta property="og:site_name" content="twilight">
-<meta property="og:updated_time" content="2019-01-06T16:12:26.909Z">
+<meta property="og:description" content="之前做的一个小程序，用到了 wepy 小程序开发框架，小程序上线也有一段时间了，在此对使用 wepy 作一个小小的总结。 1. 支持组件化的 wepy wepy官网 对 wepy 的描述是让小程序支持组件化开发的框架。原生小程序组件化支持能力太弱，wepy 借鉴了 Vue 的语法风格，提供了类似用 Vue 开发微信小程序的体验。">
+<meta property="og:updated_time" content="2019-04-15T10:31:37.110Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wepy使用总结">
+<meta name="twitter:description" content="之前做的一个小程序，用到了 wepy 小程序开发框架，小程序上线也有一段时间了，在此对使用 wepy 作一个小小的总结。 1. 支持组件化的 wepy wepy官网 对 wepy 的描述是让小程序支持组件化开发的框架。原生小程序组件化支持能力太弱，wepy 借鉴了 Vue 的语法风格，提供了类似用 Vue 开发微信小程序的体验。">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -158,15 +161,95 @@
   
 
         
-        <a href="/2019/01/06/wepy使用总结/" class="archive-article-date">
-  	<time datetime="2019-01-06T14:47:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-06</time>
+        <a href="/2019/02/03/wepy使用总结/" class="archive-article-date">
+  	<time datetime="2019-02-03T06:23:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>之前做的一个小程序，用到了 <a href="https://tencent.github.io/wepy/document.html#/" target="_blank" rel="external">wepy</a> 小程序开发框架，小程序上线也有一段时间了，在此对使用 wepy 作一个小小的总结。</p>
+<h4 id="1-支持组件化的-wepy"><a href="#1-支持组件化的-wepy" class="headerlink" title="1. 支持组件化的 wepy"></a>1. 支持组件化的 wepy</h4><blockquote>
+<p><a href="https://tencent.github.io/wepy/#/" target="_blank" rel="external">wepy官网</a> 对 wepy 的描述是让小程序支持组件化开发的框架。原生小程序组件化支持能力太弱，wepy 借鉴了 Vue 的语法风格，提供了类似用 Vue 开发微信小程序的体验。</p>
+</blockquote>
+<a id="more"></a>
+<h4 id="2-初始化"><a href="#2-初始化" class="headerlink" title="2. 初始化"></a>2. 初始化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install wepy-cli -g</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wepy init standard myproject</div></pre></td></tr></table></figure>
+<blockquote>
+<p>初始化之后的 src 开发目录结构如下，其中小程序运行代码目录是 dist ，由 wepy 的 build 指令自动编译生成：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">├── app.wpy                小程序配置项</div><div class="line">├── components             组件目录</div><div class="line">│   ├── counter.wpy</div><div class="line">│   ├── group.wpy</div><div class="line">│   ├── groupitem.wpy</div><div class="line">│   ├── list.wpy</div><div class="line">│   ├── panel.wpy</div><div class="line">│   └── wepy-list.wpy</div><div class="line">├── index.template.html    模板文件</div><div class="line">├── mixins                 Mixin 混合</div><div class="line">│   └── test.js</div><div class="line">├── pages                  页面目录    </div><div class="line">│   └── index.wpy</div><div class="line">└── store                  wepy-redux目录</div><div class="line">    ├── actions</div><div class="line">    │   ├── counter.js</div><div class="line">    │   └── index.js</div><div class="line">    ├── index.js</div><div class="line">    ├── reducers</div><div class="line">    │   ├── counter.js</div><div class="line">    │   └── index.js</div><div class="line">    └── types</div><div class="line">        ├── counter.js</div><div class="line">        └── index.js</div></pre></td></tr></table></figure>
+<blockquote>
+<p>项目运行</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm run dev      开发</div><div class="line">npm run build    生产</div></pre></td></tr></table></figure>
+<blockquote>
+<p>页面结构如下，一个wpy文件包含了脚本部分、结构部分、样式部分：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&lt;script&gt;</div><div class="line">import wepy from &apos;wepy&apos;;</div><div class="line">import Counter from &apos;../components/counter&apos;;</div><div class="line"></div><div class="line">export default class Page extends wepy.page &#123;</div><div class="line">    config = &#123;&#125;;</div><div class="line">    components = &#123;counter1: Counter&#125;;</div><div class="line"></div><div class="line">    data = &#123;&#125;;</div><div class="line">    methods = &#123;&#125;;</div><div class="line"></div><div class="line">    events = &#123;&#125;;</div><div class="line">    onLoad() &#123;&#125;;</div><div class="line">    // Other properties</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;template lang=&quot;wxml&quot;&gt;</div><div class="line">    &lt;view&gt;</div><div class="line">    &lt;/view&gt;</div><div class="line">    &lt;counter1&gt;&lt;/counter1&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;style lang=&quot;less&quot;&gt;</div><div class="line">/** less **/</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>组件结构也是类似，继承自wepy.component类，不需要config配置以及页面特有的一些生命周期函数。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;template lang=&quot;wxml&quot;&gt;</div><div class="line">    &lt;view&gt;  &lt;/view&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">import wepy from &apos;wepy&apos;;</div><div class="line">export default class Com extends wepy.component &#123;</div><div class="line">    components = &#123;&#125;;</div><div class="line"></div><div class="line">    data = &#123;&#125;;</div><div class="line">    methods = &#123;&#125;;</div><div class="line"></div><div class="line">    events = &#123;&#125;;</div><div class="line">    // Other properties</div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div><div class="line"></div><div class="line">&lt;style lang=&quot;less&quot;&gt;</div><div class="line">/** less **/</div><div class="line">&lt;/style&gt;</div></pre></td></tr></table></figure>
+<h3 id="3-特性"><a href="#3-特性" class="headerlink" title="3. 特性"></a>3. 特性</h3><ul>
+<li><p>支持组件化</p>
+<ul>
+<li>computed 计算属性</li>
+<li>watcher 监听器</li>
+<li>props 传值</li>
+<li>slot 内容分发等</li>
+</ul>
+</li>
+<li><p>支持加载外部npm包，通过 npm i XXX 使用一些常用的包。</p>
+</li>
+<li>支持 ES6/7 的一些特性，如 async 函数，promise 等。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">export const asyncInc = createAction(ASYNC_INCREMENT, () =&gt; &#123;</div><div class="line">  return new Promise(resolve =&gt; &#123;</div><div class="line">    setTimeout(() =&gt; &#123;</div><div class="line">      resolve(1)</div><div class="line">    &#125;, 1000)</div><div class="line">  &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ul>
+<li>WXS，类似 Vue 的 filter</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">// mywxs.wxs</div><div class="line"></div><div class="line">module.exports = &#123;</div><div class="line">  text: &apos;This is from wxs&apos;,</div><div class="line">  filter: function (num) &#123;</div><div class="line">    return num.toFixed(2);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// index.wpy</div><div class="line"></div><div class="line">&lt;template&gt;</div><div class="line">  &lt;text&gt;&#123;&#123;m1.text&#125;&#125;&lt;/text&gt;</div><div class="line">  &lt;text&gt;&#123;&#123;m1.filter(num)&#125;&#125;&lt;/text&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line">  import wepy from &apos;wepy&apos;;</div><div class="line">  import mywxs from &apos;../wxs/mywxs.wxs&apos;;</div><div class="line"></div><div class="line">  export default class Index extends wepy.page &#123;</div><div class="line"></div><div class="line">    data = &#123;</div><div class="line">      num: 10</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    wxs = &#123;</div><div class="line">      m1: mywxs</div><div class="line">    &#125;</div><div class="line"></div><div class="line">  &#125;;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<ul>
+<li>数据绑定方式，这里要注意的是，在异步函数中更新数据的时候，必须手动调用$apply方法，才会触发脏数据检查流程的运行，从而更新数据。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">// 原生小程序</div><div class="line">this.setData(&#123;message: &apos;hello world&apos;&#125;);</div><div class="line"></div><div class="line"></div><div class="line">// wepy</div><div class="line">this.message = &apos;hello world&apos;;</div></pre></td></tr></table></figure>
+<h3 id="4-遇到的问题"><a href="#4-遇到的问题" class="headerlink" title="4. 遇到的问题"></a>4. 遇到的问题</h3><ul>
+<li><p>props传递过去的值，html代码界面中显示正确，但在 onLoad 生命周期中打印 undefined，方法中使用也是 undefined。</p>
+<ul>
+<li>在父组件利用 $broadcast，在获取到数据后对数据进行广播，然后在子组件中获取到数据。</li>
+</ul>
+</li>
+<li><p>在 <a href="https://tencent.github.io/wepy/document.html#/?id=%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98" target="_blank" rel="external">wepy文档</a> 的最后，可以看到这么一段话：</p>
+<blockquote>
+<p>WePY 1.x 版本中，组件使用的是静态编译组件，即组件是在编译阶段编译进页面的，每个组件都是唯一的一个实例，目前只提供简单的 repeat 支持。不支持在 repeat 的组件中去使用 props, computed, watch 等等特性。</p>
+<ul>
+<li>将需要变量渲染的一整组数据直接通过 props 传给子组件，在子组件中使用 repeat 循环渲染。改变数据用子组件通过$emit改变数据源，更新数据。</li>
+</ul>
+</blockquote>
+</li>
+<li><p>路由问题，目前小程序最多支持打开10个page。</p>
+<ul>
+<li>使用 <a href="https://github.com/zhuanzhuanfe/fancy-mini/blob/master/docs/%E6%97%A0%E9%99%90%E5%B1%82%E7%BA%A7%E8%B7%AF%E7%94%B1%E6%96%B9%E6%A1%88.md" target="_blank" rel="external">无限路由方案</a></li>
+</ul>
+</li>
+<li><p>全局数据管理问题：比如在 A 页面用到了全局数据 globalData，由 A 页面跳转到 B 页面，B 页面也用到了 globalData；在 B 页面改变 globalData，返回到 A 页面，发现 globalData 没实时更新到。</p>
+<ul>
+<li>通过使用 <a href="https://www.npmjs.com/package/wepy-redux" target="_blank" rel="external">wepy-redux </a>，来管理和分发全局数据。</li>
+<li>另外还可以使用 EventBus 通过订阅/发布事件的方式，共享数据。</li>
+</ul>
+</li>
+</ul>
+<h3 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h3><blockquote>
+<p>第一次使用wepy，虽然遇到了挺多坑点（原生也是很多坑），但是由于借鉴了Vue的代码风格，再对比原生小程序，还是极大的提高了开发的体验，使得后期的维护变得简单。</p>
+</blockquote>
+<p>不正之处，还望指正。</p>
+<p>参考链接：</p>
+<ul>
+<li><a href="https://github.com/aben1188/awesome-wepy" target="_blank" rel="external">微信小程序wepy框架开发资源汇总</a></li>
+<li><a href="https://tencent.github.io/wepy/document.html#/" target="_blank" rel="external">wepy官方文档</a></li>
+</ul>
+
       
 
       
@@ -250,7 +333,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2019/01/06/wepy使用总结/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2019/02/03/wepy使用总结/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -264,18 +347,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/01/06/微信小程序之图片上传/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          微信小程序之图片上传
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/11/11/「译」使用Webpack的Code Splitting在Vue中进行延迟加载/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">「译」使用Webpack的Code Splitting在Vue中进行延迟加载</div>
+    <a href="/2019/01/06/微信小程序之图片上传/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微信小程序之图片上传</div>
       <i class="icon-circle-right"></i>
     </a>
   
