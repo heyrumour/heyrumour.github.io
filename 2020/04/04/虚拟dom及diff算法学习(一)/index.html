@@ -6,14 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018/11 | twilight</title>
+  <title>虚拟dom及diff算法学习(一) | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="twilight">
-<meta property="og:url" content="http://yoursite.com/archives/2018/11/index.html">
+  <meta name="description" content="经常看到，常用的框架react、vue设计原理是用到了virtual dom及diff算法，那么究竟什么是virtual dom？virtual dom有什么优势和缺点？如何实现？diff算法的核心又是什么？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="虚拟dom及diff算法学习(一)">
+<meta property="og:url" content="http://yoursite.com/2020/04/04/虚拟dom及diff算法学习(一)/index.html">
 <meta property="og:site_name" content="twilight">
+<meta property="og:description" content="经常看到，常用的框架react、vue设计原理是用到了virtual dom及diff算法，那么究竟什么是virtual dom？virtual dom有什么优势和缺点？如何实现？diff算法的核心又是什么？">
+<meta property="og:updated_time" content="2020-04-06T13:14:46.634Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="twilight">
+<meta name="twitter:title" content="虚拟dom及diff算法学习(一)">
+<meta name="twitter:description" content="经常看到，常用的框架react、vue设计原理是用到了virtual dom及diff算法，那么究竟什么是virtual dom？virtual dom有什么优势和缺点？如何实现？diff算法的核心又是什么？">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -145,76 +149,202 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-虚拟dom及diff算法学习(一)" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/11/「译」使用Webpack的Code Splitting在Vue中进行延迟加载/" class="archive-article-date">
-  	<time datetime="2018-11-11T15:18:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-11</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/11/「译」使用Webpack的Code Splitting在Vue中进行延迟加载/">「译」使用Webpack的Code Splitting在Vue中进行延迟加载</a>
+    <h1 class="article-title" itemprop="name">
+      虚拟dom及diff算法学习(一)
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/11/webpack代码分离/" class="archive-article-date">
-  	<time datetime="2018-11-11T07:53:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-11</time>
+        
+        <a href="/2020/04/04/虚拟dom及diff算法学习(一)/" class="archive-article-date">
+  	<time datetime="2020-04-04T06:14:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-04</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/11/webpack代码分离/">Webpack Code Splitting实践</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>经常看到，常用的框架react、vue设计原理是用到了virtual dom及diff算法，那么究竟什么是virtual dom？virtual dom有什么优势和缺点？如何实现？diff算法的核心又是什么？</p>
+<a id="more"></a>
+<h4 id="1-virtual-dom的概念"><a href="#1-virtual-dom的概念" class="headerlink" title="1. virtual dom的概念"></a>1. virtual dom的概念</h4><blockquote>
+<p>virtual dom是对dom的抽象，其实就是一个JavaScript对象，这个对象是更加轻量级的对dom的描述，用于提高性能。为了方便，后面virtual dom简写为vdom。</p>
+</blockquote>
+<h5 id="1-1-🌰"><a href="#1-1-🌰" class="headerlink" title="1.1 🌰"></a>1.1 🌰</h5><ul>
+<li><p>假设真实的dom对象如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;ul id=&apos;list&apos;&gt;</div><div class="line">  &lt;li class=&apos;item&apos;&gt;itemA&lt;/li&gt;</div><div class="line">  &lt;li class=&apos;item&apos;&gt;itemB&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>那么对应的vdom则为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">&#123;  </div><div class="line">    tag:&apos;ul&apos;,  // 元素的标签类型</div><div class="line">    attrs:&#123;  //  表示指定元素身上的属性</div><div class="line">        id:&apos;list&apos;</div><div class="line">    &#125;,</div><div class="line">    children:[  // ul元素的子节点</div><div class="line">        &#123;</div><div class="line">            tag: &apos;li&apos;,</div><div class="line">            attrs:&#123;</div><div class="line">                className:&apos;item&apos;</div><div class="line">            &#125;,</div><div class="line">            children:[&apos;itemA&apos;]</div><div class="line">        &#125;,</div><div class="line">        &#123;   tag: &apos;li&apos;,</div><div class="line">            attrs:&#123;</div><div class="line">                className:&apos;item&apos;</div><div class="line">            &#125;,</div><div class="line">            children:[&apos;itemB&apos;]</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>vdom参数主要包括tag，attrs，children</p>
+<ul>
+<li>tag: 指定元素的标签类型，如：’ul’；</li>
+<li>attrs: 指定元素身上的属性，如id，class，style，自定义属性等；</li>
+<li>children: 表示指定元素是否有子节点，参数以数组的形式传入，如果是文本就是数组中为字符串。</li>
+</ul>
+<h4 id="2-virtual-dom的优缺点"><a href="#2-virtual-dom的优缺点" class="headerlink" title="2. virtual dom的优缺点"></a>2. virtual dom的优缺点</h4><h5 id="2-1-vdom优点"><a href="#2-1-vdom优点" class="headerlink" title="2.1 vdom优点"></a>2.1 vdom优点</h5><ul>
+<li>我们知道在前端性能优化的一个手段就是尽可能少地操作dom，因为操作dom相对较慢，频繁变动dom会造成浏览器的回流或者重绘，使性能不好。所以我们抽象dom，在操作dom的步骤尽可能一次性并且较少改动的完成，这样保证了dom不会出现性能很差的情况；</li>
+<li>实现了函数式UI编程；</li>
+<li>更好的跨平台，比如Node.js的SSR(服务端渲染)，ReactNative，React VR、weex都是使用了vdom，相关的内容可以查阅一下。</li>
+</ul>
+<h5 id="2-2-vdom缺点"><a href="#2-2-vdom缺点" class="headerlink" title="2.2 vdom缺点"></a>2.2 vdom缺点</h5><ul>
+<li>首次大量dom操作的情况下，性能不如直接操作原生dom，单一的、频繁的更新dom，vdom会花费更多的时间处理计算，比较差异的工作。</li>
+</ul>
+<h4 id="3-virtual-dom核心"><a href="#3-virtual-dom核心" class="headerlink" title="3. virtual dom核心"></a>3. virtual dom核心</h4><blockquote>
+<p>这里借助<a href="https://github.com/snabbdom/snabbdom" target="_blank" rel="external">snabbdom.js</a>这个库来理解vdom的核心，因为snabbdom源码简短，我们常用的vue框架的虚拟dom实现也是参考了snabbdom.js的实现。其结构如下：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">src</div><div class="line">├── domApi.js    # dom api，主要是各种 DOM 操作的包装</div><div class="line">├── export.js    # export，决定暴露什么接口给调用者</div><div class="line">├── h.js         # h函数</div><div class="line">├── index.js     # 核心代码，vdom的diff实现，从vdom构建dom等等，核心</div><div class="line">├── modules      # 各个模块，主要负责属性处理</div><div class="line">│   ├── class.js</div><div class="line">│   ├── props.js</div><div class="line">│   └── style.js</div><div class="line">├── utils.js     # util函数</div><div class="line">└── vnode.js     # vnode定义和一些相关函数</div></pre></td></tr></table></figure>
+<h5 id="3-1-snabbdom的核心"><a href="#3-1-snabbdom的核心" class="headerlink" title="3.1 snabbdom的核心"></a>3.1 snabbdom的核心</h5><ul>
+<li>compile，通过h函数把真实dom编译成vnode虚拟节点对象；</li>
+<li>diff，通过算法，记录oldVnode和newVnode之间有什么变化；（核心）</li>
+<li>patch， 如果把这些变化用更新到真实dom上去。</li>
+</ul>
+<h5 id="3-2-将vnode转化为真实dom"><a href="#3-2-将vnode转化为真实dom" class="headerlink" title="3.2 将vnode转化为真实dom"></a>3.2 将vnode转化为真实dom</h5><blockquote>
+<p>上面说到，h函数是把真实的dom节点编译成vnode对象，vnode对象其实就是单个vdom的创建，其代码如下（代码建议结合<a href="https://github.com/snabbdom/snabbdom" target="_blank" rel="external">snabbdom.js</a>源码查看）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">export function vnode (sel: string | undefined,</div><div class="line">    data: any | undefined,</div><div class="line">    children: Array&lt;VNode | string&gt; | undefined,</div><div class="line">    text: string | undefined,</div><div class="line">    elm: Element | Text | undefined): VNode &#123;</div><div class="line">    const key = data === undefined ? undefined : data.key;</div><div class="line">    return &#123; sel, data, children, text, elm, key &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>其返回的对象即为单个vdom；我们知道dom其实是一个tree，可以有节点和属性等；snabbdom利用h函数通过递归调用来创建dom tree，代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function h(sel, data, children) &#123;</div><div class="line">    let props = &#123;&#125;,</div><div class="line">        c,</div><div class="line">        text,</div><div class="line">        key;</div><div class="line">    // 这里省略各种判断...最终返回对应的dom tree</div><div class="line">    return vnode(sel, props, c, key, text, undefined);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>vdom是dom对象的抽象，所以需要将vdom与真实的dom对应起来，在snabbdom是通过createElm函数实现的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">function createElm(vnode : VNode, insertedVnodeQueue : VNodeQueue) : Node &#123;</div><div class="line">    let i: any;</div><div class="line">    let data = vnode.data;</div><div class="line">    if (data !== undefined) &#123;</div><div class="line">        const init = data.hook</div><div class="line">            ?.init;</div><div class="line">        if (isDef(init)) &#123;</div><div class="line">            init(vnode);</div><div class="line">            data = vnode.data;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    const children = vnode.children;</div><div class="line">    const sel = vnode.sel;</div><div class="line">    if (sel === &apos;!&apos;) &#123;</div><div class="line">        if (isUndef(vnode.text)) &#123;</div><div class="line">            vnode.text = &apos;&apos;;</div><div class="line">        &#125;</div><div class="line">        vnode.elm = api.createComment(vnode.text !);</div><div class="line">    &#125; else if (sel !== undefined) &#123;</div><div class="line">        // Parse selector</div><div class="line">        const hashIdx = sel.indexOf(&apos;#&apos;);</div><div class="line">        const dotIdx = sel.indexOf(&apos;.&apos;, hashIdx);</div><div class="line">        const hash = hashIdx &gt; 0</div><div class="line">            ? hashIdx</div><div class="line">            : sel.length;</div><div class="line">        const dot = dotIdx &gt; 0</div><div class="line">            ? dotIdx</div><div class="line">            : sel.length;</div><div class="line">        const tag = hashIdx !== -1 || dotIdx !== -1</div><div class="line">            ? sel.slice(0, Math.min(hash, dot))</div><div class="line">            : sel;</div><div class="line">        const elm = vnode.elm = isDef(data) &amp;&amp; isDef(i = data.ns)</div><div class="line">            ? api.createElementNS(i, tag)</div><div class="line">            : api.createElement(tag);</div><div class="line">        if (hash &lt; dot) </div><div class="line">            elm.setAttribute(&apos;id&apos;, sel.slice(hash + 1, dot));</div><div class="line">        if (dotIdx &gt; 0) </div><div class="line">            elm.setAttribute(&apos;class&apos;, sel.slice(dot + 1).replace(/\./g, &apos; &apos;));</div><div class="line">        for (i = 0; i &lt; cbs.create.length; ++i) </div><div class="line">            cbs.create[i](emptyNode, vnode);</div><div class="line">        if (is.array(children)) &#123;</div><div class="line">            for (i = 0; i &lt; children.length; ++i) &#123;</div><div class="line">                const ch = children[i];</div><div class="line">                if (ch != null) &#123;</div><div class="line">                    api.appendChild(elm, createElm(ch as VNode, insertedVnodeQueue));</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125; else if (is.primitive(vnode.text)) &#123;</div><div class="line">            api.appendChild(elm, api.createTextNode(vnode.text));</div><div class="line">        &#125;</div><div class="line">        const hook = vnode.data !.hook;</div><div class="line">        if (isDef(hook)) &#123;</div><div class="line">            hook.create</div><div class="line">                ?.(emptyNode, vnode);</div><div class="line">            if (hook.insert) &#123;</div><div class="line">                insertedVnodeQueue.push(vnode);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">        vnode.elm = api.createTextNode(vnode.text !);</div><div class="line">    &#125;</div><div class="line">    return vnode.elm;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看到，通过createElm函数，可以生成对应的dom，把data里定义的各种属性设置到dom上，也就是把vdom与真实的dom对应起来了。</p>
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="pay.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2020/04/04/虚拟dom及diff算法学习(一)/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/02/03/wepy使用总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">wepy使用总结</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -237,8 +367,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
