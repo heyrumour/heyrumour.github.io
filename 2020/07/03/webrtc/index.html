@@ -6,14 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | twilight</title>
+  <title>WebRTC | twilight</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="twilight">
-<meta property="og:url" content="http://yoursite.com/archives/page/2/index.html">
+  <meta name="description" content="1. WebRTC简介1.1 WebRTC介绍 WebRTC全称web实时通信技术（Web Real-Time Communication），可以使浏览器和其他浏览器直接交互，多媒体功能是非常先进的，有很多新的特性。目前由W3C和IETF组织负责WebRTC的标准化工作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebRTC">
+<meta property="og:url" content="http://yoursite.com/2020/07/03/webrtc/index.html">
 <meta property="og:site_name" content="twilight">
+<meta property="og:description" content="1. WebRTC简介1.1 WebRTC介绍 WebRTC全称web实时通信技术（Web Real-Time Communication），可以使浏览器和其他浏览器直接交互，多媒体功能是非常先进的，有很多新的特性。目前由W3C和IETF组织负责WebRTC的标准化工作。">
+<meta property="og:image" content="http://yoursite.com/2020/07/03/webrtc/1.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/03/webrtc/2.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/03/webrtc/5.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/03/webrtc/6.png">
+<meta property="og:updated_time" content="2020-07-08T02:12:12.630Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="twilight">
+<meta name="twitter:title" content="WebRTC">
+<meta name="twitter:description" content="1. WebRTC简介1.1 WebRTC介绍 WebRTC全称web实时通信技术（Web Real-Time Communication），可以使浏览器和其他浏览器直接交互，多媒体功能是非常先进的，有很多新的特性。目前由W3C和IETF组织负责WebRTC的标准化工作。">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/03/webrtc/1.png">
   
     <link rel="alternative" href="/atom.xml" title="twilight" type="application/atom+xml">
   
@@ -145,197 +154,237 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-webrtc" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      WebRTC
+    </h1>
+  
+
+        
+        <a href="/2020/07/03/webrtc/" class="archive-article-date">
+  	<time datetime="2020-07-03T04:50:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-03</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-WebRTC简介"><a href="#1-WebRTC简介" class="headerlink" title="1. WebRTC简介"></a>1. WebRTC简介</h2><h3 id="1-1-WebRTC介绍"><a href="#1-1-WebRTC介绍" class="headerlink" title="1.1 WebRTC介绍"></a>1.1 WebRTC介绍</h3><blockquote>
+<p>WebRTC全称web实时通信技术（Web Real-Time Communication），可以使浏览器和其他浏览器直接交互，多媒体功能是非常先进的，有很多新的特性。目前由W3C和IETF组织负责WebRTC的标准化工作。</p>
+</blockquote>
+<a id="more"></a>
+<p>（做标准化工作；不必安装软件、插件等；制定标准）</p>
+<h4 id="1-1-1-web应用基本模式"><a href="#1-1-1-web应用基本模式" class="headerlink" title="1.1.1 web应用基本模式"></a>1.1.1 web应用基本模式</h4><p><img src="/2020/07/03/webrtc/1.png" alt="find"></p>
+<h4 id="1-1-2-浏览器中的实时通信"><a href="#1-1-2-浏览器中的实时通信" class="headerlink" title="1.1.2 浏览器中的实时通信"></a>1.1.2 浏览器中的实时通信</h4><p><img src="/2020/07/03/webrtc/2.png" alt="find"></p>
+<h4 id="1-1-3-常见的模型"><a href="#1-1-3-常见的模型" class="headerlink" title="1.1.3 常见的模型"></a>1.1.3 常见的模型</h4><ul>
+<li>三角形</li>
+<li>梯形</li>
+</ul>
+<h4 id="1-1-4-WebRTC-媒体流"><a href="#1-1-4-WebRTC-媒体流" class="headerlink" title="1.1.4 WebRTC 媒体流"></a>1.1.4 WebRTC 媒体流</h4><ul>
+<li>麦克风音频流</li>
+<li>摄像头视频流等</li>
+</ul>
+<h2 id="2-使用"><a href="#2-使用" class="headerlink" title="2. 使用"></a>2. 使用</h2><h3 id="2-1-四个主要步骤"><a href="#2-1-四个主要步骤" class="headerlink" title="2.1 四个主要步骤:"></a>2.1 四个主要步骤:</h3><ul>
+<li>1）获取本地媒体（getUserMedia）。</li>
+<li>2）在浏览器和对等端（其他浏览器或终端）之间建立连接（RTCPeerConnection 对等连接）。</li>
+<li>3）将媒体和数据通道关联至该连接。</li>
+<li>4）交换会话描述。</li>
+</ul>
+<p>（RTCPeerConnection调用close断开）</p>
+<p>三角形模型🌰<br><img src="/2020/07/03/webrtc/5.png" alt="find"></p>
+<p>其他终端的模型…</p>
+<h2 id="3-本地媒体获取"><a href="#3-本地媒体获取" class="headerlink" title="3. 本地媒体获取"></a>3. 本地媒体获取</h2><h3 id="3-1-媒体流"><a href="#3-1-媒体流" class="headerlink" title="3.1 媒体流"></a>3.1 媒体流</h3><blockquote>
+<p>目前，请求和访问本地媒体只有一种方式，即通过调用getUserMedia()</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">function gotUserMedia(s) &#123;</div><div class="line">    // console.log(&quot;s.length = &quot; + s.getAudioTracks().length);</div><div class="line">    t = (s.getVideoTracks)[0];</div><div class="line">    console.log(&quot;haha: \n&quot; + </div><div class="line">        JOSN.stringify(t.getCapabilities() + &quot;\n&quot;)</div><div class="line">    );</div><div class="line">&#125;</div><div class="line">window.navigator.mediaDevices.getUserMedia(&#123;</div><div class="line">    &quot;video&quot;: true,</div><div class="line">&#125;, gotUserMedia)</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在收到用户许可之前，用户代理不能返回对源的访问，而收到用户许可则可能需要数秒或更长时间。为确保整个JavaScript线程不终止，可通过回调（本示例中为gotUserMedia）来返回流。只有在成功获取请求的媒体后， 才会调用此回调。</p>
+</blockquote>
+<h3 id="3-2-🌰"><a href="#3-2-🌰" class="headerlink" title="3.2 🌰"></a>3.2 🌰</h3><p>（Web服务器：一是多线程服务器；为每个请求提供单独的进程，这样可简化文件检索，但请求之间的同步十分复杂；二是单线程服务器，可简化请求之间的同步，但诸如文件检索等输入/输出十分复杂。Apache Web服务器是前者的范例，而Node.js则是后者的范例。<br>采用Node.js （下文简称“Node”）作为服务器框架，原因如下：<br>1）它大幅简化了不同浏览器请求之间的通信。<br>2）它釆用异步JavaScript编程模型，此模型已为大部分Web程序员所熟悉。</p>
+<p>…</p>
+<h2 id="4-信令"><a href="#4-信令" class="headerlink" title="4. 信令"></a>4. 信令</h2><h3 id="4-1-作用"><a href="#4-1-作用" class="headerlink" title="4.1 作用"></a>4.1 作用</h3><ul>
+<li>1）    协商媒体功能和设置。</li>
+<li>2）    标识和验证会话参与者的身份。</li>
+<li>3）    控制媒体会话、指示进度、更改会话和终止会话。</li>
+<li>4）当会话双方同时尝试建立或更改会话时，实施双占用分解。</li>
+</ul>
+<p>(在参与对等连接的两个浏览器之间交换会话描述协议对象中包含的信息。SDP包含供浏览器中的RTP媒体栈配置媒体会话所需的全部信息，包括媒体类型（音 频、视频、数据）、所用的编解码器、用于编解码器的各个参数或设置, 以及有关带宽的信息。此外，信令通道还用于交换候选地址，以便进行ICE打洞等）</p>
+<h3 id="4-2-信令传输"><a href="#4-2-信令传输" class="headerlink" title="4.2 信令传输"></a>4.2 信令传输</h3><ul>
+<li>HTTP 传输（轮询）</li>
+<li>WebSocket 传输</li>
+<li>数据通道</li>
+<li>其他（Google应用程序引擎通道API，SIP）</li>
+</ul>
+<p>🌰</p>
+<h2 id="5-对等媒体"><a href="#5-对等媒体" class="headerlink" title="5. 对等媒体"></a>5. 对等媒体</h2><h3 id="5-1-不采用WebRTC媒体流"><a href="#5-1-不采用WebRTC媒体流" class="headerlink" title="5.1 不采用WebRTC媒体流"></a>5.1 不采用WebRTC媒体流</h3><p><img src="/2020/07/03/webrtc/6.png" alt="find"></p>
+<ul>
+<li>web服务器带宽问题</li>
+</ul>
+<h3 id="5-2-WebRTC媒体流"><a href="#5-2-WebRTC媒体流" class="headerlink" title="5.2 WebRTC媒体流"></a>5.2 WebRTC媒体流</h3><blockquote>
+<p>媒体路径可有若干Internet跃点，可缩短传输所需的时间（延迟较低），降低 数据包丢失的概率。减少了Web服务器占用的带宽，而且还消除了Web服务器与浏览器之间的地理距离问题。对等媒体流可大幅降低提供实时通信服务的成本。</p>
+</blockquote>
+<h3 id="5-3-NAT-网络地址转换"><a href="#5-3-NAT-网络地址转换" class="headerlink" title="5.3 NAT 网络地址转换"></a>5.3 NAT 网络地址转换</h3><h4 id="5-3-1-共有地址-私有地址"><a href="#5-3-1-共有地址-私有地址" class="headerlink" title="5.3.1 共有地址-私有地址"></a>5.3.1 共有地址-私有地址</h4><blockquote>
+<p>位于NAT之后的IP地址是“私有” IP地址（在NAT内使用）。分配给NAT的IP地址（可能有多个地址）是“公共” IP地址（在NAT “外部”使用），NAT每次从内部向外部转发数据包时，都使用公共地址。–对等连接受影响，打洞技术</p>
+</blockquote>
+<h2 id="6-对等连接"><a href="#6-对等连接" class="headerlink" title="6. 对等连接"></a>6. 对等连接</h2><h3 id="6-1-RTCPeerConnection"><a href="#6-1-RTCPeerConnection" class="headerlink" title="6.1 RTCPeerConnection"></a>6.1 RTCPeerConnection</h3><blockquote>
+<p>功能是在两个浏览器之间建立媒体和数据连接路径。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">pc = new RTCPeerConnection(&#123;</div><div class="line">    iceServers: [ </div><div class="line">        &#123;</div><div class="line">            &quot;url&quot;: &quot;stun: stun.l.google.com: 19302&quot;</div><div class="line">        &#125;,</div><div class="line">        &#123;</div><div class="line">            &quot;url&quot;: &quot;turn:user@turn.myserver.com&quot;, </div><div class="line">            &quot;credential&quot;: &quot;test&quot;,</div><div class="line">        &#125;</div><div class="line">    ]</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>要让你的本地Mediastream传输至另一端的浏览器，下一步就是向你的浏览器做出指示。用于执行此操作的方法是addStream():</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">// 获取本地音频和视频</div><div class="line">getUserMedia(&#123;MaudioM: true, &quot;video&quot;: true), successCB, failureCB);</div><div class="line"></div><div class="line">function successCB(myStream) (</div><div class="line">// 告诉浏览器，要发送Mediastream</div><div class="line">    pc.addStream(myStream)；</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="6-2-提议-应答"><a href="#6-2-提议-应答" class="headerlink" title="6.2 提议/应答"></a>6.2 提议/应答</h3><blockquote>
+<p>一方针对要建立的媒体会话类型创建描述，来发起媒体会话，此过程称为“提议”。 第一方使用信令通道将提议发送给另一方。随后，另一方予以回应，此过程称为“应答”。 提议/应答交换可确保双方都知道要发送和接收的媒体类型，以及如何正确解码和处理该媒体。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">// 生成提议</div><div class="line">pc.createOffer(gotOfferr, didntGetOffer); </div><div class="line"></div><div class="line">function gotOffer(aSessionDescription) &#123;</div><div class="line">    setLocalDescription(aSessionDescription);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 生成应答</div><div class="line">pc.createAnswer(gotAnswer, didntGetAnswer); </div><div class="line">function gotAnswer(aSessionDescription) (</div><div class="line">    setLocalDescription(aSessionDescription);</div><div class="line">    //现在将会话描述(应答)发送给对等端，以便对等端</div><div class="line">    ...</div><div class="line">)</div></pre></td></tr></table></figure>
+<h2 id="7-数据通道"><a href="#7-数据通道" class="headerlink" title="7. 数据通道"></a>7. 数据通道</h2><h3 id="7-1-用于交互数据"><a href="#7-1-用于交互数据" class="headerlink" title="7.1 用于交互数据"></a>7.1 用于交互数据</h3><blockquote>
+<p>数据通道模型基于WebSocket建立，具有简单且可设置的send方法和onmessage处理程序。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">pc = new RTCPeerConnection(); </div><div class="line">dc = pc.createDataChannel(&quot;dc1&quot;);</div><div class="line"></div><div class="line">dc.send(&quot;hello&quot;);</div><div class="line">dc.onmessage = (e) =&gt; &#123;</div><div class="line">    console.log(e.data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="8-其他"><a href="#8-其他" class="headerlink" title="8. 其他"></a>8. 其他</h2><ul>
+<li>隐私、安全、攻击</li>
+<li>Chrome工具、支持情况</li>
+</ul>
+<h2 id="9-sdk使用"><a href="#9-sdk使用" class="headerlink" title="9. sdk使用"></a>9. sdk使用</h2><p>参考链接：<br><a href="http://webrtcbook.com/" target="_blank" rel="external">WebRTC全文指南</a><br><a href="https://www.webrtc.org.cn/" target="_blank" rel="external">WebRTC中文网</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="pay.JPG">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/15/React处理事件响应/" class="archive-article-date">
-  	<time datetime="2018-05-15T14:05:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/15/React处理事件响应/">React处理事件响应</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/09/callback介绍/" class="archive-article-date">
-  	<time datetime="2018-04-09T13:46:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/09/callback介绍/">回调函数介绍</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/04/移动端适配/" class="archive-article-date">
-  	<time datetime="2018-03-04T05:45:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/04/移动端适配/">移动端适配</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/01/12/谈谈函数参数传递/" class="archive-article-date">
-  	<time datetime="2018-01-12T14:01:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/01/12/谈谈函数参数传递/">谈谈函数参数传递</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/09/Web存储/" class="archive-article-date">
-  	<time datetime="2017-12-09T14:51:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-09</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/09/Web存储/">Web存储</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2020/07/03/webrtc/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/Web Worker/" class="archive-article-date">
-  	<time datetime="2017-11-05T14:43:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/04/04/虚拟dom及diff算法学习(一)/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">虚拟dom及diff算法学习(一)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/Web Worker/">浅谈Web Worker</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/archives/">&laquo; Prev</a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
   
 
 
@@ -359,8 +408,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
